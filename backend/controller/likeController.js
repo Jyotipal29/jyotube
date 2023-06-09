@@ -2,7 +2,7 @@ const Video = require("../model/videoModel");
 const Like = require("../model/likeModel");
 
 // Route for toggling the like status of a video
-const togelLike = async (req, res) => {
+const toggleLike = async (req, res) => {
   const { videoId } = req.params;
 
   try {
@@ -35,5 +35,5 @@ const togelLike = async (req, res) => {
 };
 
 module.exports = {
-  togelLike,
+  toggleLike,
 };
