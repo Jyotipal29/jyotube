@@ -5,10 +5,7 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  desc: {
-    type: String,
-    required: true,
-  },
+
   thumbnailUrl: {
     type: String,
     required: true,
