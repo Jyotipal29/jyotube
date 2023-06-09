@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
   watchlater: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Save",
+      ref: "Watchlater",
     },
   ],
   playlists: [
