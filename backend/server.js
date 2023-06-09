@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
+const videoRoutes = require("./routes/videoRoutes");
 
 connectDB();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", authRoutes);
+app.use("/video", videoRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`listening in port number ${port}`));
