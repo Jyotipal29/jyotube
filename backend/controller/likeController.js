@@ -19,14 +19,14 @@ const toggleLike = async (req, res) => {
       video.likes.pull(like._id);
       await video.save();
       await like.remove();
-      return res.json({ message: "Video unliked successfully" });
+      return res.json({ message: "Video unliked successfully",video,like });
     } else {
       // If the user hasn't liked the video, create a new like
       const newLike = new Like({ user: req.user, video: videoId });
       await newLike.save();
       video.likes.push(newLike);
       await video.save();
-      return res.json({ message: "Video liked successfully" });
+      return res.json({ message: "Video liked successfully", video, like });
     }
   } catch (error) {
     console.error("Error toggling like status:", error);
