@@ -59,7 +59,6 @@ const login = async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("invalid users");
   }
 };
 
