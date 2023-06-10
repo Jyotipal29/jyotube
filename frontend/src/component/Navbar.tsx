@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="text-red-600 uppercase text-2xl ">
           <Link to="/">jyotube</Link>
         </div>
-        <ul className="text-white flex space-x-8 uppercase text-lg">
+        <ul className="text-white flex space-x-2 uppercase ">
           <li>
             <Link to="/like">like</Link>
           </li>
