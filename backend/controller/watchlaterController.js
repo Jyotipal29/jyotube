@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const Video = require("./videoModel");
-const Watchlater = require("./watchlaterModel");
+const Video = require("../model/videoModel");
+const Watchlater = require("../model/watchlaterModel");
 
 const toggleWatchlater = async (req, res) => {
   const { id } = req.params;
