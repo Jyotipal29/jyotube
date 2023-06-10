@@ -7,9 +7,15 @@ import axios from "axios";
 import { api } from "../constant/api";
 import { useEffect, useState } from "react";
 import { useVideo } from "../context/videoContext/videoContext";
+import { useUser } from "../context/userContext/userContext";
+import { useNavigate } from "react-router-dom";
 const Video = () => {
   const { id } = useParams();
   const [currVideo, setCurrVideo] = useState<Video | null>(null);
+  const navigate = useNavigate();
+  const {
+    userState: { user },
+  } = useUser();
   const {
     videoState: { video },
     videoDispatch,
@@ -24,12 +30,20 @@ const Video = () => {
     getVideo();
   }, [id]);
 
-  console.log(video, "video ");
-
   // like handler
 
   const likeHandler = async (id: string) => {
-    console.log(id, "this is the id");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `http://localhost:8000/like/toggel/${id}`,
+      config
+    );
+    console.log(data, "like data");
   };
 
   return (

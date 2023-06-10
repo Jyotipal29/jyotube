@@ -31,7 +31,7 @@ const toggleLike = async (req, res) => {
     }
   } catch (error) {
     console.error("Error toggling like status:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ message: error.message });
   }
 };
 
