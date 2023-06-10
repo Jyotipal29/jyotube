@@ -19,7 +19,7 @@ const Videos = () => {
   }, []);
 
   return (
-    <div>
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5">
       {videos.map((item) => (
         <VideoCard {...item} />
       ))}
