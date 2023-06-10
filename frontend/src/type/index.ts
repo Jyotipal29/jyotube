@@ -9,6 +9,7 @@ declare global {
     likes: string[];
     watchlater: string[];
     videoUrl: string;
+    channelImg: string;
   };
   type VideoState = {
     videos: Video[];
