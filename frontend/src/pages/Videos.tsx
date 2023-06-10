@@ -1,7 +1,7 @@
 import axios from "axios";
 import { api } from "../constant/api";
 import { useEffect } from "react";
-import { useVideo } from "../context/videoContext";
+import { useVideo } from "../context/videoContext/videoContext";
 import VideoCard from "../component/VideoCard";
 
 const Videos = () => {

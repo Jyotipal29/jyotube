@@ -28,4 +28,22 @@ declare global {
     videoState: VideoState;
     videoDispatch: React.Dispatch<VideoAction>;
   };
+
+  type User = {
+    name: string;
+    email: string;
+    password: string;
+    token: string;
+  };
+  type UserState = {
+    user: User | null;
+  };
+  type UserAction =
+    | { type: "LOGIN"; payload: User }
+    | { type: "REGISTER"; payload: User };
+
+  type UserContextType = {
+    userState: UserState;
+    userDispatch: React.Dispatch<UserAction>;
+  };
 }

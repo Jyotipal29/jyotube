@@ -7,8 +7,7 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
   console.log({ name, email, password }, "all data");
   if (!name || !email || !password) {
-    res.status(400);
-    throw new Error("please add all fields");
+    res.status(400).json({ message: "please add all fields" });
   }
 
   //check if user exist
@@ -16,8 +15,7 @@ const register = async (req, res) => {
     email,
   });
   if (userExists) {
-    res.status(400);
-    throw new Error("User already exist");
+    res.status(400).json({ message: "User already exixt" });
   }
 
   //hash password
@@ -38,8 +36,7 @@ const register = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400);
-    throw new Error("invalid error");
+    res.status(400).json({ message: "invalid user" });
   }
 };
 
@@ -47,9 +44,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   //check for user email
-  const user = await User.findOne({
-    email,
-  });
+  const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
@@ -58,7 +53,7 @@ const login = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400);
+    res.status(400).json({ message: "Unauthorized access" });
   }
 };
 

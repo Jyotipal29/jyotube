@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike } from "react-icons/ai";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { CgPlayListAdd } from "react-icons/cg";
 import axios from "axios";
 import { api } from "../constant/api";
 import { useEffect, useState } from "react";
-import { useVideo } from "../context/videoContext";
+import { useVideo } from "../context/videoContext/videoContext";
 const Video = () => {
   const { id } = useParams();
   const [currVideo, setCurrVideo] = useState<Video | null>(null);
@@ -24,6 +25,13 @@ const Video = () => {
   }, [id]);
 
   console.log(video, "video ");
+
+  // like handler
+
+  const likeHandler = async (id: string) => {
+    console.log(id, "this is the id");
+  };
+
   return (
     <div className="container mx-auto px-6 mt-5 rounded-lg">
       <div className="flex justify-center ">
@@ -39,7 +47,13 @@ const Video = () => {
       </div>
       <div className="bg-gray-900 flex justify-between items-center  px-2 py-3 ">
         <div className="flex items-center">
-          <AiOutlineLike className="text-white text-2xl md:text-4xl cursor-pointer" />
+          <button onClick={() => currVideo?._id && likeHandler(currVideo._id)}>
+            {currVideo?.likes.includes(currVideo?._id) ? (
+              <AiFillLike className="text-white text-2xl md:text-4xl cursor-pointer" />
+            ) : (
+              <AiOutlineLike className="text-white text-2xl md:text-4xl cursor-pointer" />
+            )}
+          </button>
         </div>
         <div className="flex items-center">
           <MdOutlineWatchLater className="text-white text-2xl md:text-4xl cursor-pointer" />
