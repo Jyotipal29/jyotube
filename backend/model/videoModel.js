@@ -10,6 +10,10 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  channelImg: {
+    type: String,
+    required: true,
+  },
   videoUrl: {
     type: String,
     required: true,
