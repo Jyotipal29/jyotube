@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/like" element={<Likes />} />
-          <Route path="/video" element={<Video />} />
+          <Route path="/video/:id" element={<Video />} />
           <Route path="/watchlater" element={<Watchlater />} />
         </Routes>
       </Router>
