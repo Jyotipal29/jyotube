@@ -18,7 +18,26 @@ const createPlaylist = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+const addToPlaylist = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { video } = req.body;
 
+    const playlist = await Playlist.findById(id);
+    if (!playlist) {
+      return res.status(404).json({ error: "Playlist not found" });
+    }
+
+    playlist.videos.push(video);
+    await playlist.save();
+
+    res.status(200).json(playlist);
+  } catch (error) {
+    console.error("Error adding video to playlist:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
 module.exports = {
   createPlaylist,
+  addToPlaylist,
 };
