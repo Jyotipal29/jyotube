@@ -27,7 +27,7 @@ const toggleLike = async (req, res) => {
       await newLike.save();
       video.likes.push(newLike);
       await video.save();
-      return res.json({ message: "Video liked successfully", video });
+      return res.json(video);
     }
   } catch (error) {
     console.error("Error toggling like status:", error);
