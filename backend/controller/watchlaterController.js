@@ -31,7 +31,7 @@ const toggleWatchlater = async (req, res) => {
       await newWatchlater.save();
       video.watchlater.push(newWatchlater);
       await video.save();
-      return res.json({ message: "Video saved to watch later", video });
+      return res.json(video);
     }
   } catch (error) {
     console.error("Error toggling watch later status:", error);
@@ -47,7 +47,7 @@ const getWatchlaterVideos = async (req, res) => {
 
     const videos = watchlaters.map((watchlater) => watchlater.video);
 
-    res.json({ videos });
+    res.json(videos);
   } catch (error) {
     console.error("Error retrieving watch later videos:", error);
     res.status(500).json({ message: error.message });

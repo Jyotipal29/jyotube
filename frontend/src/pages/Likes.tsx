@@ -30,7 +30,7 @@ const Likes = () => {
   }, []);
   console.log(liked, "like page data  main");
   return (
-    <div className="grid grid-cols-2 md:grid-col-3 mt-5 px-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
       {liked.map((item: Video) => (
         <VideoCard {...item} />
       ))}
