@@ -34,10 +34,26 @@ const addToPlaylist = async (req, res) => {
     res.status(200).json(playlist);
   } catch (error) {
     console.error("Error adding video to playlist:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+const getPlaylists = async (req, res) => {
+  try {
+    const { user } = req;
+
+    // Find all playlists for the user
+    const playlists = await Playlist.find({ user: user._id }).populate(
+      "videos"
+    );
+
+    res.status(200).json(playlists);
+  } catch (error) {
+    console.error("Error retrieving user playlists:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
 module.exports = {
   createPlaylist,
   addToPlaylist,
+  getPlaylists,
 };
