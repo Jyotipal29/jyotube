@@ -1,0 +1,44 @@
+const History = require("../model/historyModel");
+const Video = require("../model/videoModel");
+
+const addHistory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { user } = req;
+
+    const video = await Video.findById(id);
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const history = new History({
+      user: user._id,
+      video: id,
+    });
+
+    await history.save();
+
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error watching video:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+const getHistory = async (req, res) => {
+  try {
+    const { user } = req;
+
+    const history = await History.find({ user: user._id })
+      .populate("video")
+      .sort({ watchedAt: -1 });
+
+    res.status(200).json(history);
+  } catch (error) {
+    console.error("Error retrieving watched videos:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+module.exports = {
+  addHistory,
+  getHistory,
+};

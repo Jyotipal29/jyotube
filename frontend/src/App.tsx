@@ -7,6 +7,7 @@ import Video from "./pages/Video";
 import Watchlater from "./pages/Watchlater";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import History from "./pages/History";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/watchlater" element={<Watchlater />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </Router>
     </>
