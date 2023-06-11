@@ -39,6 +39,22 @@ const toggleWatchlater = async (req, res) => {
   }
 };
 
+const getWatchlaterVideos = async (req, res) => {
+  try {
+    const watchlaters = await Watchlater.find({ user: req.user._id }).populate(
+      "video"
+    );
+
+    const videos = watchlaters.map((watchlater) => watchlater.video);
+
+    res.json({ videos });
+  } catch (error) {
+    console.error("Error retrieving watch later videos:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   toggleWatchlater,
+  getWatchlaterVideos,
 };
