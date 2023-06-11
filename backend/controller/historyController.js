@@ -26,13 +26,15 @@ const addHistory = async (req, res) => {
 };
 const getHistory = async (req, res) => {
   try {
-    const { user } = req;
+  const { user } = req;
 
-    const history = await History.find({ user: user._id })
-      .populate("video")
-      .sort({ watchedAt: -1 });
+  const distinctVideoIds = await History.distinct("video", { user: user._id });
 
-    res.status(200).json(history);
+  const history = await Video.find({ _id: { $in: distinctVideoIds } }).sort({
+    updatedAt: -1,
+  });
+
+  res.status(200).json(history);
   } catch (error) {
     console.error("Error retrieving watched videos:", error);
     res.status(500).json({ error: "Server error" });

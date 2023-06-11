@@ -15,6 +15,7 @@ declare global {
     videos: Video[];
     watchlater: Video[];
     liked: Video[];
+    history: Video[];
     video: Video | object;
   };
 
@@ -24,7 +25,9 @@ declare global {
     | { type: "Like_VIDEO"; payload: Video[] }
     | { type: "ADD_WATCHLATER"; payload: Video[] }
     | { type: "TOGGLE_LIKE"; payload: Video }
-    | { type: "TOGGLE_WATCHLATER"; payload: Video };
+    | { type: "TOGGLE_WATCHLATER"; payload: Video }
+    | { type: "ADD_HISTORY"; payload: Video }
+    | { type: "GET_HISTORY"; payload: Video[] };
 
   type VideoContextType = {
     videoState: VideoState;

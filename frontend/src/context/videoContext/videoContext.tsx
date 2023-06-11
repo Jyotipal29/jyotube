@@ -17,6 +17,7 @@ export const VideoProvider = ({ children }: VideoProviderProps) => {
     video: {},
     watchlater: [],
     liked: [],
+    history: [],
   });
 
   return (

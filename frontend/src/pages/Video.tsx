@@ -18,7 +18,7 @@ const Video = () => {
     userState: { user },
   } = useUser();
   const {
-    videoState: { video, liked, watchlater },
+    videoState: { video, liked, watchlater, history },
     videoDispatch,
   } = useVideo();
   const getVideo = async () => {
@@ -28,6 +28,20 @@ const Video = () => {
   };
   useEffect(() => {
     getVideo();
+  }, [id]);
+
+  const addHistory = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+    const { data } = await axios.post<Video>(`${api}history/${id}`, {}, config);
+    console.log(data, "history video");
+    videoDispatch({ type: "ADD_HISTORY", payload: data });
+  };
+  useEffect(() => {
+    addHistory();
   }, [id]);
 
   const likeHandler = async (id: string) => {

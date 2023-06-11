@@ -46,6 +46,16 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
           : [...videoState.watchlater, action.payload],
       };
     }
+    case "ADD_HISTORY":
+      return {
+        ...videoState,
+        history: [...videoState.history, action.payload],
+      };
+    case "GET_HISTORY":
+      return {
+        ...videoState,
+        history: action.payload,
+      };
 
     default:
       return videoState;
