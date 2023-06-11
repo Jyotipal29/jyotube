@@ -3,21 +3,25 @@ import { api } from "../constant/api";
 import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext/userContext";
 import VideoCard from "../component/VideoCard";
-
+import { useVideo } from "../context/videoContext/videoContext";
 const Watchlater = () => {
   const [watchLater, setWatchLater] = useState([]);
   const {
     userState: { user },
   } = useUser();
+  const {
+    videoState: { watchlater },
+    videoDispatch,
+  } = useVideo();
   const getWatchLaterVideos = async () => {
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     };
-    const { data } = await axios.get(`${api}watchlater/`, config);
-    console.log(data.videos, "liked data");
-    setWatchLater(data.videos);
+    const { data } = await axios.get<Video[]>(`${api}watchlater/`, config);
+
+    videoDispatch({ type: "ADD_WATCHLATER", payload: data });
   };
 
   useEffect(() => {
@@ -25,8 +29,8 @@ const Watchlater = () => {
   }, []);
   console.log(watchLater, "liked vidios");
   return (
-    <div>
-      {watchLater.map((item: Video) => (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
+      {watchlater.map((item: Video) => (
         <VideoCard {...item} />
       ))}
     </div>

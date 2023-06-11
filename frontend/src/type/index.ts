@@ -22,8 +22,9 @@ declare global {
     | { type: "GET_VIDEOS"; payload: Video[] }
     | { type: "GET_VIDEO"; payload: Video }
     | { type: "Like_VIDEO"; payload: Video[] }
-    | { type: "ADD_WATCHLATER"; payload: Video }
-    | { type: "TOGGLE_LIKE"; payload: Video };
+    | { type: "ADD_WATCHLATER"; payload: Video[] }
+    | { type: "TOGGLE_LIKE"; payload: Video }
+    | { type: "TOGGLE_WATCHLATER"; payload: Video };
 
   type VideoContextType = {
     videoState: VideoState;

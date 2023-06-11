@@ -5,7 +5,6 @@ import { useUser } from "../context/userContext/userContext";
 import VideoCard from "../component/VideoCard";
 import { useVideo } from "../context/videoContext/videoContext";
 const Likes = () => {
-  const [likedVideo, setLikedVideo] = useState([]);
   const {
     userState: { user },
   } = useUser();
