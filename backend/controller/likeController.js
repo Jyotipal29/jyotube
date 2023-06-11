@@ -35,6 +35,20 @@ const toggleLike = async (req, res) => {
   }
 };
 
+const getLikedVideos = async (req, res) => {
+  try {
+    const likes = await Like.find({ user: req.user._id }).populate("video");
+
+    const videos = likes.map((like) => like.video);
+
+    res.json({ videos });
+  } catch (error) {
+    console.error("Error retrieving liked videos:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   toggleLike,
+  getLikedVideos,
 };
