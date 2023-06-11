@@ -5,6 +5,6 @@ const { protect } = require("./verifyToken");
 const { toggleLike, getLikedVideos } = require("../controller/likeController");
 
 router.post("/toggel/:id", protect, toggleLike);
-router.post("/", protect, getLikedVideos);
+router.get("/", protect, getLikedVideos);
 
 module.exports = router;
