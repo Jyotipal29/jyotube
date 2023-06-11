@@ -20,7 +20,7 @@ const toggleLike = async (req, res) => {
       video.likes.pull(like._id);
       await video.save();
       //   await like.remove();
-      return res.json({ message: "Video unliked successfully", video });
+      return res.json(video);
     } else {
       // If the user hasn't liked the video, create a new like
       const newLike = new Like({ user: req.user, video: id });
@@ -41,7 +41,7 @@ const getLikedVideos = async (req, res) => {
 
     const videos = likes.map((like) => like.video);
 
-    res.json({ videos });
+    res.json(videos);
   } catch (error) {
     console.error("Error retrieving liked videos:", error);
     res.status(500).json({ message: error.message });
