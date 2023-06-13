@@ -48,10 +48,11 @@ const getRecommendations = async (req, res) => {
 
     let recommendations = [];
 
-    if (selectedVideo.category) {
-      // If the selected video has a category, find other videos with the same category
+    // If the selected video has a category, find other videos with the same category
+    if (selectedVideo.tag && selectedVideo.tag.length > 0) {
+      // If the selected video has tags, find other videos with the same tags
       recommendations = await Video.find({
-        category: selectedVideo.category,
+        tag: { $in: selectedVideo.tag },
         _id: { $ne: selectedVideo._id }, // Exclude the selected video itself from recommendations
       }).limit(5); // Limit the number of recommendations to 5
     } else if (selectedVideo.creator) {
