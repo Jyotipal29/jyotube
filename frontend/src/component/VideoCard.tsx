@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const VideoCard = (item: Video) => {
-  console.log(item, "item");
   return (
     <div className=" flex flex-col space-y-2">
       <div className="cursor-pointer">

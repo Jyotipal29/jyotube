@@ -24,6 +24,7 @@ declare global {
     video: Video | object;
     playlists: Playlist[];
     searchResult: Video[];
+    selectedCategory: string;
   };
   type AddToPlaylistPayload = {
     _id: string;
@@ -48,7 +49,8 @@ declare global {
     | { type: "CREATE_PLAYLIST"; payload: CreatePlaylistPayload }
     | { type: "GET_PLAYLIST"; payload: CreatePlaylistPayload }
     | { type: "ADD_TO_PLAYLIST"; payload: AddToPlaylistPayload }
-    | { type: "GET_SEARCH"; payload: Video[] };
+    | { type: "GET_SEARCH"; payload: Video[] }
+    | { type: "SET_CATEGORY"; payload: string };
 
   type VideoContextType = {
     videoState: VideoState;

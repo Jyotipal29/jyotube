@@ -20,6 +20,7 @@ export const VideoProvider = ({ children }: VideoProviderProps) => {
     history: [],
     playlists: [],
     searchResult: [],
+    selectedCategory: "all",
   });
 
   return (

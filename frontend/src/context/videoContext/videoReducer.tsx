@@ -83,6 +83,11 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
         ...videoState,
         searchResult: action.payload,
       };
+    case "SET_CATEGORY":
+      return {
+        ...videoState,
+        selectedCategory: action.payload,
+      };
     default:
       return videoState;
   }
