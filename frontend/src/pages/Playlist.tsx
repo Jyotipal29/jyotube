@@ -13,35 +13,48 @@ const Playlist = () => {
     videoState: { playlists },
     videoDispatch,
   } = useVideo();
-  const getPlaylist = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
+    const getPlaylist = async () => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      };
+      const { data } = await axios.get(`${api}playlist/`, config);
+      videoDispatch({ type: "GET_PLAYLIST", payload: data });
     };
-    const { data } = await axios.get(`${api}playlist/`, config);
-    videoDispatch({ type: "GET_PLAYLIST", payload: data });
-  };
 
-  useEffect(() => {
-    getPlaylist();
-  }, []);
+    useEffect(() => {
+      getPlaylist();
+    }, []);
 
-  console.log(playlists, "playlists");
-  return (
-    <div>
-      {playlists.map((item) => (
-        <div>
-          <p className="bg-red-500 py-2 text-white text-center">{item.name}</p>
-          <div className="grid grid-cols-2">
-            {item.videos.map((item) => (
-              <VideoCard {...item} />
-            ))}
+    const deletePlaylist = async (id: string) => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      };
+      await axios.delete(`${api}playlist/${id}`, config);
+      videoDispatch({ type: "DELETE_PLAYLIST", payload: id });
+    };
+    return (
+      <div>
+        {playlists.map((item) => (
+          <div>
+            <div className="flex justify-between px-12 bg-gray-600">
+              <button onClick={() => deletePlaylist(item._id)}>delete</button>
+
+              <p className=" py-2  text-center">{item.name}</p>
+            </div>
+
+            <div className="grid grid-cols-2">
+              {item.videos.map((item) => (
+                <VideoCard {...item} />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
 };
 
 export default Playlist;

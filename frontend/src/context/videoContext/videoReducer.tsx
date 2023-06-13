@@ -96,7 +96,14 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
     case "GET_RCMDT":
       return {
         ...videoState,
-        recommend:action.payload
+        recommend: action.payload,
+      };
+    case "DELETE_PLAYLIST":
+      return {
+        ...videoState,
+        playlists: videoState.playlists.filter(
+          (item) => item._id !== action.payload
+        ),
       };
     default:
       return videoState;

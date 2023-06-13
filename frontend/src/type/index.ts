@@ -38,6 +38,11 @@ declare global {
     name: string;
     video: Video;
   };
+  // remove video from playlist
+  type RVFP = {
+    playlistId: string;
+    videoId: string;
+  };
   type VideoAction =
     | { type: "GET_VIDEOS"; payload: Video[] }
     | { type: "GET_VIDEO"; payload: Video }
@@ -53,7 +58,9 @@ declare global {
     | { type: "ADD_TO_PLAYLIST"; payload: AddToPlaylistPayload }
     | { type: "GET_SEARCH"; payload: Video[] }
     | { type: "SET_CATEGORY"; payload: string }
-    | { type: "GET_RCMDT"; payload: Video[] };
+    | { type: "GET_RCMDT"; payload: Video[] }
+    | { type: "DELETE_PLAYLIST"; payload: string }
+    | { type: "REMOVE_VIDEO_FROM_PLAYLIST"; payload: RVFP };
 
   type VideoContextType = {
     videoState: VideoState;

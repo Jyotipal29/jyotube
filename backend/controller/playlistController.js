@@ -49,8 +49,8 @@ const deletePlaylist = async (req, res) => {
     }
 
     // Delete the playlist
-    await playlist.remove();
-
+    // await playlist.remove();
+    await playlist.deleteOne();
     res.status(200).json({ message: "Playlist deleted successfully" });
   } catch (error) {
     console.error("Error deleting playlist:", error);
