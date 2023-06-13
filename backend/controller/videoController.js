@@ -35,8 +35,43 @@ const getSearch = async (req, res) => {
   }
 };
 
+const getRecommendations = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Find the selected video by its ID
+    const selectedVideo = await Video.findById(id);
+
+    if (!selectedVideo) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    let recommendations = [];
+
+    if (selectedVideo.category) {
+      // If the selected video has a category, find other videos with the same category
+      recommendations = await Video.find({
+        category: selectedVideo.category,
+        _id: { $ne: selectedVideo._id }, // Exclude the selected video itself from recommendations
+      }).limit(5); // Limit the number of recommendations to 5
+    } else if (selectedVideo.creator) {
+      // If the selected video has a creator, find other videos by the same creator
+      recommendations = await Video.find({
+        creator: selectedVideo.creator,
+        _id: { $ne: selectedVideo._id }, // Exclude the selected video itself from recommendations
+      }).limit(5); // Limit the number of recommendations to 5
+    }
+
+    res.json(recommendations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to get video recommendations" });
+  }
+};
+
 module.exports = {
   getVideos,
   getVideo,
   getSearch,
+  getRecommendations,
 };
