@@ -46,6 +46,7 @@ declare global {
     | { type: "TOGGLE_WATCHLATER"; payload: Video }
     | { type: "ADD_HISTORY"; payload: Video }
     | { type: "GET_HISTORY"; payload: Video[] }
+    | { type: "CLEAR_HISTORY" }
     | { type: "CREATE_PLAYLIST"; payload: CreatePlaylistPayload }
     | { type: "GET_PLAYLIST"; payload: CreatePlaylistPayload }
     | { type: "ADD_TO_PLAYLIST"; payload: AddToPlaylistPayload }

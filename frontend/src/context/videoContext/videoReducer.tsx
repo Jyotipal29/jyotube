@@ -56,6 +56,11 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
         ...videoState,
         history: action.payload,
       };
+    case "CLEAR_HISTORY":
+      return {
+        ...videoState,
+        history: [],
+      };
     case "CREATE_PLAYLIST":
       return {
         ...videoState,

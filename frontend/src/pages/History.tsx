@@ -26,13 +26,34 @@ const History = () => {
   useEffect(() => {
     getHistory();
   }, []);
+
+  const clearHistory = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+    const { data } = await axios.delete(`${api}history/`, config);
+    videoDispatch({ type: "CLEAR_HISTORY" });
+    console.log("history deleted");
+  };
   console.log(history, "the history it is");
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
-      {history.map((item) => (
-        <VideoCard {...item} />
-      ))}
-    </div>
+    <>
+      <div>
+        <button
+          onClick={clearHistory}
+          className="border-2 px-3 py-1 text-red-500 bg-gray-800"
+        >
+          clear history
+        </button>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
+        {history.map((item) => (
+          <VideoCard {...item} />
+        ))}
+      </div>
+    </>
   );
 };
 
