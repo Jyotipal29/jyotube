@@ -40,7 +40,21 @@ const getHistory = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+const clearHistory = async (req, res) => {
+  try {
+    const { user } = req;
+
+    await History.deleteMany({ user: user._id });
+
+    res.status(200).json({ message: "History cleared successfully" });
+  } catch (error) {
+    console.error("Error clearing history:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
 module.exports = {
   addHistory,
   getHistory,
+  clearHistory,
 };
