@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
 import { MdWatchLater } from "react-icons/md";
+import { MdPlaylistAddCircle } from "react-icons/md";
 const Navbar = () => {
   const navigate = useNavigate();
   const { userState } = useUser();
@@ -31,6 +32,11 @@ const Navbar = () => {
           <li>
             <Link to="/history">
               <FaHistory className="text-white text-2xl" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/playlist">
+              <MdPlaylistAddCircle className="text-white text-2xl" />
             </Link>
           </li>
           {userState?.user?.token ? (

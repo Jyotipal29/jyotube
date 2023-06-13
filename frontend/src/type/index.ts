@@ -11,14 +11,30 @@ declare global {
     videoUrl: string;
     channelImg: string;
   };
+  type Playlist = {
+    _id: string;
+    name: string;
+    videos: Video[];
+  };
   type VideoState = {
     videos: Video[];
     watchlater: Video[];
     liked: Video[];
     history: Video[];
     video: Video | object;
+    playlists: Playlist[];
+  };
+  type AddToPlaylistPayload = {
+    _id: string;
+    playlistId: string;
+    video: Video;
   };
 
+  type CreatePlaylistPayload = {
+    _id: string;
+    name: string;
+    video: Video;
+  };
   type VideoAction =
     | { type: "GET_VIDEOS"; payload: Video[] }
     | { type: "GET_VIDEO"; payload: Video }
@@ -27,7 +43,10 @@ declare global {
     | { type: "TOGGLE_LIKE"; payload: Video }
     | { type: "TOGGLE_WATCHLATER"; payload: Video }
     | { type: "ADD_HISTORY"; payload: Video }
-    | { type: "GET_HISTORY"; payload: Video[] };
+    | { type: "GET_HISTORY"; payload: Video[] }
+    | { type: "CREATE_PLAYLIST"; payload: CreatePlaylistPayload }
+    | { type: "GET_PLAYLIST"; payload: CreatePlaylistPayload }
+    | { type: "ADD_TO_PLAYLIST"; payload: AddToPlaylistPayload };
 
   type VideoContextType = {
     videoState: VideoState;

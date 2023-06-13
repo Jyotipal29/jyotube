@@ -8,6 +8,7 @@ import Watchlater from "./pages/Watchlater";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import History from "./pages/History";
+import Playlist from "./pages/Playlist";
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/history" element={<History />} />
+          <Route path="/playlist" element={<Playlist />} />
         </Routes>
       </Router>
     </>

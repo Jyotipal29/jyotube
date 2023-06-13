@@ -17,7 +17,26 @@ const getVideo = async (req, res) => {
   }
 };
 
+const getSearch = async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const videos = await Video.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { creator: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    res.json(videos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getVideos,
   getVideo,
+  getSearch,
 };

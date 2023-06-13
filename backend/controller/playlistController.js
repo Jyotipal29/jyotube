@@ -41,7 +41,6 @@ const getPlaylists = async (req, res) => {
   try {
     const { user } = req;
 
-    // Find all playlists for the user
     const playlists = await Playlist.find({ user: user._id }).populate(
       "videos"
     );

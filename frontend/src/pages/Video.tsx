@@ -13,12 +13,14 @@ import { useNavigate } from "react-router-dom";
 const Video = () => {
   const { id } = useParams();
   const [currVideo, setCurrVideo] = useState<Video | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [newPlaylistName, setNewPlaylistName] = useState("");
   const navigate = useNavigate();
   const {
     userState: { user },
   } = useUser();
   const {
-    videoState: { video, liked, watchlater, history },
+    videoState: { liked, watchlater, playlists },
     videoDispatch,
   } = useVideo();
   const getVideo = async () => {
@@ -81,6 +83,40 @@ const Video = () => {
   const isSaved =
     currVideo && watchlater.some((item) => item._id === currVideo._id);
 
+  // add to playlist
+  const addToPlaylist = async (id: string) => {
+    console.log(id);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+    const { data } = await axios.post(
+      `${api}playlist/${id}`,
+      { video: currVideo },
+      config
+    );
+    console.log(data, "add to playlist data");
+    videoDispatch({ type: "ADD_TO_PLAYLIST", payload: data });
+  };
+
+  //create playlist
+  const createPlaylist = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+
+    const { data } = await axios.post<CreatePlaylistPayload>(
+      `${api}playlist/`,
+      { name: newPlaylistName, video: currVideo },
+      config
+    );
+    videoDispatch({ type: "CREATE_PLAYLIST", payload: data });
+    setShowModal(false);
+    setNewPlaylistName("");
+  };
   return (
     <div className="container mx-auto px-6 mt-5 rounded-lg">
       <div className="flex justify-center ">
@@ -116,9 +152,65 @@ const Video = () => {
           </button>
         </div>
         <div className="flex items-center justify-center">
-          <CgPlayListAdd className="text-white text-2xl md:text-4xl cursor-pointer" />
+          <CgPlayListAdd
+            className="text-white text-2xl md:text-4xl cursor-pointer"
+            onClick={() => setShowModal(true)}
+          />
         </div>
       </div>
+      {showModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-md">
+            {/* <h3 className="text-lg font-bold mb-4">Add to Playlist</h3> */}
+            {/* <select
+              className="border border-gray-300 rounded-md p-2 mb-4"
+              onChange={(e) => addToPlaylist(e.target.value)}
+            >
+              <option value="">Select an existing playlist</option>
+              {playlists.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
+            </select> */}
+            <div className="border border-gray-300 rounded-md p-2 mb-4">
+              <p>Select an existing playlist:</p>
+              {playlists?.map((item) => (
+                <div key={item._id}>
+                  <input
+                    type="checkbox"
+                    id={item._id}
+                    value={item._id}
+                    onChange={(e) => addToPlaylist(e.target.value)}
+                  />
+                  <label htmlFor={item._id}>{item.name}</label>
+                </div>
+              ))}
+            </div>
+            <div>
+              <input
+                type="text"
+                className="border border-gray-300 rounded-md p-2 mb-4"
+                placeholder="Enter a new playlist name"
+                value={newPlaylistName}
+                onChange={(e) => setNewPlaylistName(e.target.value)}
+              />
+              <button
+                className="bg-red-400 text-white rounded-md px-4 py-2"
+                onClick={createPlaylist}
+              >
+                Create New Playlist
+              </button>
+            </div>
+            <button
+              className="bg-gray-200 text-gray-800 rounded-md px-4 py-2 mt-4"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

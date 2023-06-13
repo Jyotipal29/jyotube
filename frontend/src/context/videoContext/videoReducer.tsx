@@ -56,7 +56,28 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
         ...videoState,
         history: action.payload,
       };
-
+    case "CREATE_PLAYLIST":
+      return {
+        ...videoState,
+        playlists: [...videoState.playlists, action.payload],
+      };
+    case "GET_PLAYLIST":
+      return {
+        ...videoState,
+        playlists: action.payload,
+      };
+    case "ADD_TO_PLAYLIST":
+      return {
+        ...videoState,
+        playlists: videoState.playlists.map((playlist) =>
+          playlist._id === action.payload._id
+            ? {
+                ...playlist,
+                videos: [...playlist.videos, action.payload.video],
+              }
+            : playlist
+        ),
+      };
     default:
       return videoState;
   }
