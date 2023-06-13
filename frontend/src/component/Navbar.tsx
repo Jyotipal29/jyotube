@@ -5,18 +5,46 @@ import { AiFillLike } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
 import { MdWatchLater } from "react-icons/md";
 import { MdPlaylistAddCircle } from "react-icons/md";
+import { useState } from "react";
+import axios from "axios";
+import { api } from "../constant/api";
+import { useVideo } from "../context/videoContext/videoContext";
 const Navbar = () => {
   const navigate = useNavigate();
   const { userState } = useUser();
+  const { videoDispatch } = useVideo();
+  const [searchQuery, setSearchQuery] = useState("");
   const logoutHandler = () => {
     localStorage.removeItem("user");
     navigate("/login");
+  };
+
+  const handleSearch = async () => {
+    const { data } = await axios.get<Video[]>(`${api}video/search`, {
+      params: { query: searchQuery },
+    });
+
+    videoDispatch({ type: "GET_SEARCH", payload: data });
+    navigate("/search");
+    setSearchQuery("");
+    console.log(data, "search data");
   };
   return (
     <div className="bg-gray-900">
       <div className="container mx-auto px-8 flex justify-between items-center py-3">
         <div className="text-red-600 uppercase text-2xl ">
           <Link to="/">jyotube</Link>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Search by title or creator"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button onClick={handleSearch} className="text-white">
+            Search
+          </button>
         </div>
         <ul className="text-white flex space-x-4 uppercase ">
           <li>

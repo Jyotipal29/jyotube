@@ -78,6 +78,11 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
             : playlist
         ),
       };
+    case "GET_SEARCH":
+      return {
+        ...videoState,
+        searchResult: action.payload,
+      };
     default:
       return videoState;
   }

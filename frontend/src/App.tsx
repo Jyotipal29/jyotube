@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import History from "./pages/History";
 import Playlist from "./pages/Playlist";
+import SearchResult from "./pages/SearchResult";
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/history" element={<History />} />
           <Route path="/playlist" element={<Playlist />} />
+          <Route path="/search" element={<SearchResult />} />
         </Routes>
       </Router>
     </>
