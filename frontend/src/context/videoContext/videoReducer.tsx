@@ -105,6 +105,40 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
           (item) => item._id !== action.payload
         ),
       };
+    case "REMOVE_VIDEO_FROM_PLAYLIST": {
+      const { playlistId, videoId } = action.payload;
+
+      // Find the playlist index in the playlists array
+      const playlistIndex = videoState.playlists.findIndex(
+        (playlist) => playlist._id === playlistId
+      );
+
+      if (playlistIndex === -1) {
+        // Playlist not found, return the current state
+        return videoState;
+      }
+
+      // Retrieve the playlist from the state
+      const playlist = { ...videoState.playlists[playlistIndex] };
+      const updatedVideos = playlist.videos.filter(
+        (video) => video._id !== videoId
+      );
+
+      // Update the playlist with the updated videos
+      playlist.videos = updatedVideos;
+
+      // Create a new playlists array with the updated playlist
+      const updatedPlaylists = [
+        ...videoState.playlists.slice(0, playlistIndex),
+        playlist,
+        ...videoState.playlists.slice(playlistIndex + 1),
+      ];
+
+      return {
+        ...videoState,
+        playlists: updatedPlaylists,
+      };
+    }
     default:
       return videoState;
   }

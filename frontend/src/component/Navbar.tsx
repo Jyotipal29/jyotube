@@ -5,6 +5,7 @@ import { AiFillLike } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
 import { MdWatchLater } from "react-icons/md";
 import { MdPlaylistAddCircle } from "react-icons/md";
+import { BiSearch } from "react-icons/bi";
 import { useState } from "react";
 import axios from "axios";
 import { api } from "../constant/api";
@@ -35,15 +36,16 @@ const Navbar = () => {
         <div className="text-red-600 uppercase text-2xl ">
           <Link to="/">jyotube</Link>
         </div>
-        <div>
+        <div className=" flex ">
           <input
             type="text"
-            placeholder="Search by title or creator"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="search"
+            className="bg-transparent border-2 py-1 px-2 rounded-2xl border-r-0 rounded-r-none"
           />
-          <button onClick={handleSearch} className="text-white">
-            Search
+          <button className="text-white " onClick={handleSearch}>
+            <BiSearch className="text-4xl border-2 text-white  py-1  rounded-2xl  rounded-l-none" />
           </button>
         </div>
         <ul className="text-white flex space-x-4 uppercase ">
