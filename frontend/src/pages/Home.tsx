@@ -69,7 +69,7 @@ const Home = () => {
             key={item.id}
             className={`border-2 px-4 rounded-md py-1 cursor-pointer ${
               selectedCategory === item.value ? "bg-gray-500" : "bg-gray-800"
-            } uppercase text-red-500 active:text-white`}
+            } uppercase text-white active:text-red-500`}
             onClick={() =>
               videoDispatch({ type: "SET_CATEGORY", payload: item.value })
             }
