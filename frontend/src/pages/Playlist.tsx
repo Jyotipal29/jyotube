@@ -21,7 +21,7 @@ const Playlist = () => {
     const { data } = await axios.get(`${api}playlist/`, config);
     videoDispatch({ type: "GET_PLAYLIST", payload: data });
   };
-
+console.log(playlists, "playlists");
   useEffect(() => {
     getPlaylist();
   }, []);

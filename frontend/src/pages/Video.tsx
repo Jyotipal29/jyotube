@@ -40,7 +40,6 @@ const Video = () => {
       },
     };
     const { data } = await axios.post<Video>(`${api}history/${id}`, {}, config);
-    console.log(data, "history video");
     videoDispatch({ type: "ADD_HISTORY", payload: data });
   };
   useEffect(() => {
@@ -86,7 +85,7 @@ const Video = () => {
 
   // add to playlist
   const addToPlaylist = async (id: string) => {
-    console.log(id);
+    console.log(currVideo, "currVideo");
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,

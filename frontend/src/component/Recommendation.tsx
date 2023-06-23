@@ -19,7 +19,6 @@ const Recommendation = ({ id }: Id) => {
     getVideo();
   }, [id]);
 
-  console.log(recommend, "rec");
   return (
     <div>
       {recommend.map((item) => (
