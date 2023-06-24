@@ -4,6 +4,7 @@ import { useVideo } from "../context/videoContext/videoContext";
 import { useUser } from "../context/userContext/userContext";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Layout from "../component/Layout";
 const Playlist = () => {
   const {
     userState: { user },
@@ -21,7 +22,7 @@ const Playlist = () => {
     const { data } = await axios.get(`${api}playlist/`, config);
     videoDispatch({ type: "GET_PLAYLIST", payload: data });
   };
-console.log(playlists, "playlists");
+  console.log(playlists, "playlists");
   useEffect(() => {
     getPlaylist();
   }, []);
@@ -52,7 +53,7 @@ console.log(playlists, "playlists");
     });
   };
   return (
-    <div>
+    <Layout>
       {playlists.map((items) => (
         <div>
           <div className="flex justify-between px-12 bg-gray-600">
@@ -100,7 +101,7 @@ console.log(playlists, "playlists");
           </div>
         </div>
       ))}
-    </div>
+    </Layout>
   );
 };
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext/userContext";
 import VideoCard from "../component/VideoCard";
 import { useVideo } from "../context/videoContext/videoContext";
+import Layout from "../component/Layout";
 const Likes = () => {
   const {
     userState: { user },
@@ -29,11 +30,13 @@ const Likes = () => {
   }, []);
   console.log(liked, "like page data  main");
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
-      {liked.map((item: Video) => (
-        <VideoCard {...item} />
-      ))}
-    </div>
+    <Layout>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
+        {liked.map((item: Video) => (
+          <VideoCard {...item} />
+        ))}
+      </div>
+    </Layout>
   );
 };
 

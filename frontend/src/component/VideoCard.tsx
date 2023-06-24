@@ -15,12 +15,16 @@ const VideoCard = (item: Video) => {
 
       <div className="flex justify-start px-2 space-x-2">
         <div className="w-10 ">
-          <img src={item.channelImg} alt="" className=" w-full  rounded-full" />
+          <img
+            src={item.channelImg}
+            alt=""
+            className=" w-full  rounded-full object-cover"
+          />
         </div>
         <div className="w-40 ">
-          <p className="text-md font-bold">{item.title}</p>
+          <p className="text-md font-bold text-gray-100">{item.title}</p>
 
-          <h1 className="text-sm font-semibold uppercase text-gray-600">
+          <h1 className="text-sm font-semibold uppercase text-gray-100">
             {item.creator}
           </h1>
         </div>

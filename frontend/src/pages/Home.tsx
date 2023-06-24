@@ -3,6 +3,8 @@ import { api } from "../constant/api";
 import { useEffect } from "react";
 import { useVideo } from "../context/videoContext/videoContext";
 import VideoCard from "../component/VideoCard";
+import Sidebar from "../component/Sidebar";
+import Layout from "../component/Layout";
 const cat = [
   {
     id: 1,
@@ -62,14 +64,14 @@ const Home = () => {
 
   console.log(filteredVideos, "filtered videos");
   return (
-    <div className=" py-8">
-      <div className=" flex  justify-center  flex-wrap space-x-4 mb-3">
+    <Layout>
+      <div className=" flex  justify-start  space-x-4  overflow-x-hidden scroll-smooth">
         {cat.map((item) => (
           <button
             key={item.id}
-            className={`border-2 px-4 rounded-md py-1 cursor-pointer ${
+            className={`border-2 w-auto py-1 px-2 rounded-md  cursor-pointer whitespace-nowrap ${
               selectedCategory === item.value ? "bg-gray-500" : "bg-gray-800"
-            } uppercase text-white active:text-red-500`}
+            } uppercase text-white active:text-red-500 scroll-snap-start `}
             onClick={() =>
               videoDispatch({ type: "SET_CATEGORY", payload: item.value })
             }
@@ -78,14 +80,12 @@ const Home = () => {
           </button>
         ))}
       </div>
-      <div className="container mx-auto  px-8">
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5">
-          {filteredVideos.map((item) => (
-            <VideoCard {...item} />
-          ))}
-        </div>
+      <div className="grid  grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
+        {filteredVideos.map((item) => (
+          <VideoCard {...item} />
+        ))}
       </div>
-    </div>
+    </Layout>
   );
 };
 

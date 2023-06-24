@@ -4,6 +4,7 @@ import { useVideo } from "../context/videoContext/videoContext";
 import { useUser } from "../context/userContext/userContext";
 import { useEffect } from "react";
 import VideoCard from "../component/VideoCard";
+import Layout from "../component/Layout";
 import { Link } from "react-router-dom";
 const History = () => {
   const {
@@ -39,7 +40,7 @@ const History = () => {
   };
   console.log(history, "the history it is");
   return (
-    <>
+    <Layout>
       <div>
         <button
           onClick={clearHistory}
@@ -53,7 +54,7 @@ const History = () => {
           <VideoCard {...item} />
         ))}
       </div>
-    </>
+    </Layout>
   );
 };
 

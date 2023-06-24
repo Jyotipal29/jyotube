@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../context/userContext/userContext";
 import { useNavigate } from "react-router-dom";
-import { AiFillLike } from "react-icons/ai";
-import { FaHistory } from "react-icons/fa";
-import { MdWatchLater } from "react-icons/md";
-import { MdPlaylistAddCircle } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
+
 import { useState } from "react";
 import axios from "axios";
 import { api } from "../constant/api";
@@ -31,8 +28,8 @@ const Navbar = () => {
     console.log(data, "search data");
   };
   return (
-    <div className="bg-gray-900">
-      <div className="container mx-auto px-8 flex justify-between items-center py-3">
+    <div className="bg-gray-900 sticky left-0 top-0 w-full ">
+      <div className="container mx-auto px-8 flex justify-between items-center h-16 py-3">
         <div className="text-red-600 uppercase text-2xl ">
           <Link to="/">jyotube</Link>
         </div>
@@ -49,26 +46,6 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="text-white flex space-x-4 uppercase ">
-          <li>
-            <Link to="/like">
-              <AiFillLike className="text-white text-2xl" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/watchlater">
-              <MdWatchLater className="text-white text-2xl" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/history">
-              <FaHistory className="text-white text-2xl" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/playlist">
-              <MdPlaylistAddCircle className="text-white text-2xl" />
-            </Link>
-          </li>
           {userState?.user?.token ? (
             <>
               <p className="border-2 rounded-full px-2 text-yellow-400 border-yellow-400">

@@ -11,6 +11,7 @@ import { useVideo } from "../context/videoContext/videoContext";
 import { useUser } from "../context/userContext/userContext";
 import { useNavigate } from "react-router-dom";
 import Recommendation from "../component/Recommendation";
+import Layout from "../component/Layout";
 const Video = () => {
   const { id } = useParams();
   const [currVideo, setCurrVideo] = useState<Video | null>(null);
@@ -118,7 +119,7 @@ const Video = () => {
     setNewPlaylistName("");
   };
   return (
-    <>
+    <Layout>
       <div className="container mx-auto px-6 mt-5 rounded-lg">
         <div className="flex justify-center ">
           <iframe
@@ -216,7 +217,7 @@ const Video = () => {
         )}
       </div>
       <div>{id && <Recommendation id={id} />}</div>
-    </>
+    </Layout>
   );
 };
 

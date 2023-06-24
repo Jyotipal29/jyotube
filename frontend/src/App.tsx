@@ -10,11 +10,12 @@ import Register from "./pages/Register";
 import History from "./pages/History";
 import Playlist from "./pages/Playlist";
 import SearchResult from "./pages/SearchResult";
+import Homee from "./pages/Homee";
+import Layout from "./component/Layout";
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/like" element={<Likes />} />
