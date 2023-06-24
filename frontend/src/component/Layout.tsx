@@ -7,8 +7,34 @@ import { MdWatchLater } from "react-icons/md";
 import { MdPlaylistAddCircle } from "react-icons/md";
 import { AiOutlineHome } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext/userContext";
+import { useVideo } from "../context/videoContext/videoContext";
+import axios from "axios";
+import { api } from "../constant/api";
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { userState } = useUser();
+  const { videoDispatch } = useVideo();
+  const [searchQuery, setSearchQuery] = useState("");
+  const logoutHandler = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { data } = await axios.get<Video[]>(`${api}video/search`, {
+      params: { query: searchQuery },
+    });
+
+    videoDispatch({ type: "GET_SEARCH", payload: data });
+    navigate("/search");
+    setSearchQuery("");
+    console.log(data, "search data");
+  };
   return (
     <div>
       <nav className="bg-gray-800  shadow-xl fixed top-0 left-0 w-full h-16 z-10 px-5 flex items-center justify-between ">
@@ -22,8 +48,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className="w-1/3 flex flex-col">
           <form className="flex items-center">
-            <input className="border flex-1 border-gray-400 h-10 rounded-l-2xl text-white bg-gray-800 " />
-            <button className="h-10 border border-gray-400 border-l-0 rounded-r-2xl  flex items-center px-2 text-white bg-gray-800">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="search"
+              className="border flex-1 border-gray-400 h-10 rounded-l-2xl text-white bg-gray-800 "
+            />
+            <button
+              type="submit"
+              onClick={handleSearch}
+              className="h-10 border border-gray-400 border-l-0 rounded-r-2xl  flex items-center px-2 text-white bg-gray-800"
+            >
               <AiOutlineSearch className="text-2xl" />
             </button>
           </form>

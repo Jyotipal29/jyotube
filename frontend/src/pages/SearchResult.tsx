@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useVideo } from "../context/videoContext/videoContext";
+import Layout from "../component/Layout";
 
 const SearchResult = () => {
   const {
@@ -8,7 +9,7 @@ const SearchResult = () => {
 
   console.log(searchResult, "search page");
   return (
-    <div>
+    <Layout>
       {searchResult.map((item) => (
         <div className="">
           <div>
@@ -26,7 +27,7 @@ const SearchResult = () => {
           </div>
         </div>
       ))}
-    </div>
+    </Layout>
   );
 };
 
