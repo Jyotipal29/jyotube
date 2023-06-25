@@ -47,13 +47,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className="w-1/3 flex flex-col">
-          <form className="flex items-center">
+          <form className="flex items-center ">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="search"
-              className="border flex-1 border-gray-400 h-10 rounded-l-2xl text-white bg-gray-800 "
+              className="border px-3 flex-1 border-gray-400 h-10 rounded-l-2xl text-white bg-gray-800 "
             />
             <button
               type="submit"
@@ -150,7 +150,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </ul>
       </aside>
       <section
-        className=" mt-16 px-3 py-3 space-y-2 bg-gray-900"
+        className=" mt-16 px-3 py-3 space-y-2 h-full bg-gray-900"
         style={{ marginLeft: open ? "250px" : "70px", transition: "0.2s" }}
       >
         {children}
