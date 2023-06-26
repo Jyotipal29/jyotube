@@ -20,10 +20,16 @@ const Recommendation = ({ id }: Id) => {
   }, [id]);
 
   return (
-    <div>
+    <div className="">
       {recommend.map((item) => (
-        <div>
-          <img src={item.thumbnailUrl} className="w-20" />
+        <div className="flex mb-5 bg-gray-500 px-2 py-2 rounded-md">
+          <div>
+            <img src={item.thumbnailUrl} className="w-80 h-full" />
+          </div>
+          <div>
+            <h1 className="text-gray-100">{item.title}</h1>
+            <h1 className="text-gray-100">{item.creator}</h1>
+          </div>
         </div>
       ))}
     </div>
