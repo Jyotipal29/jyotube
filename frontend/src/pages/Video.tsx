@@ -122,7 +122,7 @@ const Video = () => {
     <Layout>
       <div className="flex  flex-col  lg:flex-row items-start justify-center">
         <div className="container mx-auto px-6 mt-5 rounded-lg ">
-          <div className="flex justify-center h-[200px] md:h-[400px] lg:h-[400px] xl:h-[550px] ml:[-16px] lg:ml-0 mr-[-16px] lg:mr-0 ">
+          <div className="">
             <iframe
               width="100%"
               height="500px"
