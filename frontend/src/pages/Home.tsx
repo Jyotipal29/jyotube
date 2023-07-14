@@ -1,10 +1,11 @@
 import axios from "axios";
 import { api } from "../constant/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useVideo } from "../context/videoContext/videoContext";
 import VideoCard from "../component/VideoCard";
 import Sidebar from "../component/Sidebar";
 import Layout from "../component/Layout";
+import { RotatingLines } from "react-loader-spinner";
 const cat = [
   {
     id: 1,
@@ -44,13 +45,16 @@ const cat = [
   },
 ];
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const {
     videoState: { videos, selectedCategory },
     videoDispatch,
   } = useVideo();
   const getVideos = async () => {
+    setLoading(true);
     const { data } = await axios.get<Video[]>(`${api}video/`);
     videoDispatch({ type: "GET_VIDEOS", payload: data });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -85,11 +89,17 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className="grid  grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
-        {filteredVideos.map((item) => (
-          <VideoCard {...item} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <RotatingLines strokeColor="red" />
+        </div>
+      ) : (
+        <div className="grid  grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
+          {filteredVideos.map((item) => (
+            <VideoCard {...item} />
+          ))}
+        </div>
+      )}
     </Layout>
   );
 };
