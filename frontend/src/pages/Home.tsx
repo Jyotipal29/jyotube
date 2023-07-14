@@ -77,7 +77,7 @@ const Home = () => {
           {cat.map((item) => (
             <button
               key={item.id}
-              className={`border-2 w-auto py-1 px-2 rounded-md cursor-pointer whitespace-nowrap ${
+              className={`border-2 w-auto py-1 px-3 mr-4  rounded-md cursor-pointer whitespace-nowrap ${
                 selectedCategory === item.value ? "bg-gray-500" : "bg-gray-800"
               } uppercase text-white active:text-red-500`}
               onClick={() =>

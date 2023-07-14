@@ -37,9 +37,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <div>
-      <nav className="bg-gray-800  shadow-xl fixed top-0 left-0 w-full h-16 z-10 px-5 flex items-center justify-between ">
+      <nav className="bg-gray-900  shadow-xl fixed top-0 left-0 w-full h-16 z-10 px-5 flex items-center justify-between ">
         <div className="flex items-center space-x-6">
-          <button className="text-white" onClick={() => setOpen(!open)}>
+          <button
+            className="text-white hidden sm:block"
+            onClick={() => setOpen(!open)}
+          >
             <AiOutlineMenu className="text-2xl  w-8 h-8 px-1 py-1" />
           </button>
           <div className="text-4xl uppercase text-red-500 font-charm  ">
@@ -74,7 +77,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </nav>
       <aside
-        className="bg-gray-800 h-full shadow-xl top-0 left-0 fixed mt-14  flex justify-center"
+        className="bg-gray-900 h-full shadow-xl top-0 left-0 fixed mt-14  flex justify-center"
         style={{ width: open ? "250px" : "70px", transition: "0.2s" }}
       >
         <ul className="flex flex-col  space-y-4">
@@ -150,7 +153,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </ul>
       </aside>
       <section
-        className=" mt-16  space-y-2 h-full bg-zinc-700  p-5  "
+        className="mt-16 space-y-2 fixed inset-0 overflow-y-auto bg-zinc-800 p-5"
         style={{ marginLeft: open ? "250px" : "70px", transition: "0.2s" }}
       >
         {children}

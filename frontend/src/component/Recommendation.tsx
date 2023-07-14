@@ -21,26 +21,16 @@ const Recommendation = ({ id }: Id) => {
   }, [id]);
 
   return (
-    // <div className="">
-    //   {recommend.map((item) => (
-    //     <div className="flex mb-5 bg-gray-500 px-2 py-2 rounded-md">
-    //       <div>
-    //         <img src={item.thumbnailUrl} className="w-80 h-full" />
-    //       </div>
-    //       <div>
-    //         <h1 className="text-gray-100">{item.title}</h1>
-    //         <h1 className="text-gray-100">{item.creator}</h1>
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
     <>
       {recommend.map((item) => (
         <Link to={`/video/${item?._id}`}>
-          <div className="flex mb-3 bg-black">
-            <div className="relative h-40 lg:h-20 xl:h-24 w-40 min-w-[168px] lg:w-32 lg:min-w-[128px] xl:w-40 xl:min-w-[168px]   overflow-hidden">
+          <div className="flex mb-3 bg-black  h-72 ">
+            <div
+              className="relative h-40 lg:h-20 xl:h-24 w-40 min-w-[168px] lg:w-32 lg:min-w-[128px] xl:w-40 xl:min-w-[168px]   overflow-hidden
+              "
+            >
               <img
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full object-cover "
                 src={item.thumbnailUrl}
               />
             </div>
