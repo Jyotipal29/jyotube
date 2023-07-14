@@ -217,9 +217,9 @@ const Video = () => {
             </div>
           )}
         </div>
-        {/* <div className="mt-5 px-6 md:ml-6 ">
+        <div className="mt-5 px-6 md:ml-6 ">
           {id && <Recommendation id={id} />}
-        </div> */}
+        </div>
       </div>
     </Layout>
   );

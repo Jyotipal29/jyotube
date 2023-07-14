@@ -46,19 +46,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             jyotube
           </div>
         </div>
-        <div className="w-1/3 flex flex-col">
-          <form className="flex items-center ">
+        <div className="w-1/3 flex flex-col  px-3">
+          <form className="flex items-center justify-end  w-full ">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="search"
-              className="border px-3 flex-1 border-gray-400 h-10 rounded-l-2xl text-white bg-gray-800 "
+              className=" hidden  md:flex w-full px-5 bg-zinc-600 h-10 rounded-tl-full rounded-bl-full outline-none text-gray-200 "
             />
             <button
               type="submit"
               onClick={handleSearch}
-              className="h-10 border border-gray-400 border-l-0 rounded-r-2xl  flex items-center px-2 text-white bg-gray-800"
+              className=" text-gray-300 md:bg-zinc-500 h-10 md:rounded-tr-full md:rounded-br-full px-2 "
             >
               <AiOutlineSearch className="text-2xl" />
             </button>
