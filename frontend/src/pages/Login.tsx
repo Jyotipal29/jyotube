@@ -74,18 +74,19 @@ const Login = () => {
           <div className="py-2 space-y-1">
             <button
               type="submit"
-              className="bg-yellow-400 w-full py-1 uppercase text-white font-semibold text-xl rounded-md"
+              className="bg-red-600 w-full py-1 uppercase text-white font-semibold text-xl rounded-md"
             >
               submit
             </button>
             <button
               type="submit"
-              className="bg-yellow-200 w-full py-1 uppercase  font-semibold text-xl rounded-md"
+              className="border border-red-600 w-full py-1 uppercase text-red-600 font-semibold text-xl rounded-md"
             >
               guest
             </button>
             <button onClick={() => navigate("/register")}>
-              Don't have an account ? Register
+              Don't have an account ?{" "}
+              <span className="text-red-600 font-semibold">Register</span>
             </button>
           </div>
         </form>

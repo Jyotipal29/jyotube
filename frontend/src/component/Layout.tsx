@@ -12,17 +12,21 @@ import { useUser } from "../context/userContext/userContext";
 import { useVideo } from "../context/videoContext/videoContext";
 import axios from "axios";
 import { api } from "../constant/api";
+import { FiLogOut } from "react-icons/fi";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { userState } = useUser();
+  const {
+    userState: { user },
+  } = useUser();
   const { videoDispatch } = useVideo();
   const [searchQuery, setSearchQuery] = useState("");
   const logoutHandler = () => {
     localStorage.removeItem("user");
     navigate("/login");
   };
+  console.log(user, "this is user");
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -34,6 +38,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     navigate("/search");
     setSearchQuery("");
     console.log(data, "search data");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
   };
   return (
     <div>
@@ -68,12 +77,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </form>
         </div>
         <div className="flex items-center space-x-6">
-          <p className="text-white uppercase font-lora border-2 border-red-500 w-10 h-10 rounded-full text-center py-1  text-xl">
-            J
-          </p>
-          <button className="bg-red-500 w-18 rounded-md text-xl text-white   px-1 font-lora">
-            login
-          </button>
+          {user?.token && (
+            <p className="text-white uppercase font-lora border-2 border-red-500 w-10 h-10 rounded-full text-center py-1  text-xl">
+              {user?.name?.charAt(0)}
+            </p>
+          )}
+          {user?.token ? (
+            <FiLogOut
+              className="text-white text-3xl cursor-pointer"
+              onClick={logout}
+            />
+          ) : (
+            <Link to="/login">
+              <button className="bg-red-500 w-18 rounded-md text-xl text-white   px-1 font-lora">
+                login
+              </button>
+            </Link>
+          )}
         </div>
       </nav>
       <aside

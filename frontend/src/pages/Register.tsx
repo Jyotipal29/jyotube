@@ -87,12 +87,13 @@ const Register = () => {
           <div className="py-2">
             <button
               type="submit"
-              className="bg-yellow-400 w-full py-1 uppercase text-white font-semibold text-xl rounded-md"
+              className="bg-red-600 w-full py-1 uppercase text-white font-semibold text-xl rounded-md"
             >
               submit
             </button>
             <button onClick={() => navigate("/login")}>
-              Already have an account ? Login
+              Already have an account ?{" "}
+              <span className="text-red-600 font-semibold">Login</span>
             </button>
           </div>
         </form>
