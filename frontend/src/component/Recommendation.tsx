@@ -3,6 +3,7 @@ import { api } from "../constant/api";
 import { useVideo } from "../context/videoContext/videoContext";
 import { useUser } from "../context/userContext/userContext";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 type Id = {
   id: string;
 };
@@ -20,19 +21,53 @@ const Recommendation = ({ id }: Id) => {
   }, [id]);
 
   return (
-    <div className="">
+    // <div className="">
+    //   {recommend.map((item) => (
+    //     <div className="flex mb-5 bg-gray-500 px-2 py-2 rounded-md">
+    //       <div>
+    //         <img src={item.thumbnailUrl} className="w-80 h-full" />
+    //       </div>
+    //       <div>
+    //         <h1 className="text-gray-100">{item.title}</h1>
+    //         <h1 className="text-gray-100">{item.creator}</h1>
+    //       </div>
+    //     </div>
+    //   ))}
+    // </div>
+    <>
       {recommend.map((item) => (
-        <div className="flex mb-5 bg-gray-500 px-2 py-2 rounded-md">
-          <div>
-            <img src={item.thumbnailUrl} className="w-80 h-full" />
+        <Link to={`/video/${item?._id}`}>
+          <div className="flex mb-3 bg-black">
+            <div className="relative h-40 lg:h-20 xl:h-24 w-40 min-w-[168px] lg:w-32 lg:min-w-[128px] xl:w-40 xl:min-w-[168px]   overflow-hidden">
+              <img
+                className="h-full w-full object-cover object-top"
+                src={item.thumbnailUrl}
+              />
+            </div>
+            <div className="flex flex-col space-y-5 ml-3 overflow-hidden py-4">
+              <span className="text-sm lg:text-xs xl:text-sm font-bold line-clamp-2 text-white">
+                {item?.title}
+              </span>
+              <div className="flex">
+                <div className="flex items-start">
+                  <div className="flex h-8 w-8 rounded-full overflow-hidden">
+                    <img
+                      className="h-full w-full object-cover"
+                      src={item?.channelImg}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col ml-3 ">
+                  <div className="text-white text-md font-semibold flex items-center ">
+                    {item?.creator}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <h1 className="text-gray-100">{item.title}</h1>
-            <h1 className="text-gray-100">{item.creator}</h1>
-          </div>
-        </div>
+        </Link>
       ))}
-    </div>
+    </>
   );
 };
 
