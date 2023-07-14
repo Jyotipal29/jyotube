@@ -150,7 +150,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </ul>
       </aside>
       <section
-        className=" mt-16  space-y-2 h-full bg-zinc-600  p-5"
+        className=" mt-16  space-y-2 h-full bg-zinc-700  p-5  "
         style={{ marginLeft: open ? "250px" : "70px", transition: "0.2s" }}
       >
         {children}
