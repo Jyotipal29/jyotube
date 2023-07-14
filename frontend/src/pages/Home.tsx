@@ -65,20 +65,25 @@ const Home = () => {
   console.log(filteredVideos, "filtered videos");
   return (
     <Layout>
-      <div className=" flex  justify-start  space-x-4  overflow-x-hidden scroll-smooth">
-        {cat.map((item) => (
-          <button
-            key={item.id}
-            className={`border-2 w-auto py-1 px-2 rounded-md  cursor-pointer whitespace-nowrap ${
-              selectedCategory === item.value ? "bg-gray-500" : "bg-gray-800"
-            } uppercase text-white active:text-red-500 scroll-snap-start `}
-            onClick={() =>
-              videoDispatch({ type: "SET_CATEGORY", payload: item.value })
-            }
-          >
-            {item.value}
-          </button>
-        ))}
+      <div
+        className="flex justify-start space-x-4 overflow-x-auto hide-scrollbar"
+        style={{ scrollBehavior: "smooth", width: "100%" }}
+      >
+        <div className="whitespace-nowrap">
+          {cat.map((item) => (
+            <button
+              key={item.id}
+              className={`border-2 w-auto py-1 px-2 rounded-md cursor-pointer whitespace-nowrap ${
+                selectedCategory === item.value ? "bg-gray-500" : "bg-gray-800"
+              } uppercase text-white active:text-red-500`}
+              onClick={() =>
+                videoDispatch({ type: "SET_CATEGORY", payload: item.value })
+              }
+            >
+              {item.value}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="grid  grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
         {filteredVideos.map((item) => (
