@@ -24,9 +24,10 @@ const Recommendation = ({ id }: Id) => {
     <>
       {recommend.map((item) => (
         <Link to={`/video/${item?._id}`}>
-          <div className="flex mb-3 bg-black  h-72 ">
+          <div className="flex my-2 bg-black  h-auto p-2 rounded-md ">
             <div
-              className="relative h-40 lg:h-20 xl:h-24 w-40 min-w-[168px] lg:w-32 lg:min-w-[128px] xl:w-40 xl:min-w-[168px]   overflow-hidden
+              className="
+              relative h-40 lg:h-20 xl:h-24 w-40 min-w-[168px] lg:w-32 lg:min-w-[128px] xl:w-40 xl:min-w-[168px]   overflow-hidden
               "
             >
               <img
@@ -34,13 +35,13 @@ const Recommendation = ({ id }: Id) => {
                 src={item.thumbnailUrl}
               />
             </div>
-            <div className="flex flex-col space-y-5 ml-3 overflow-hidden py-4">
+            <div className="flex flex-col space-y-5 ml-3 overflow-hidden ">
               <span className="text-sm lg:text-xs xl:text-sm font-bold line-clamp-2 text-white">
                 {item?.title}
               </span>
               <div className="flex">
                 <div className="flex items-start">
-                  <div className="flex h-8 w-8 rounded-full overflow-hidden">
+                  <div className="flex h-6 w-6 rounded-full overflow-hidden">
                     <img
                       className="h-full w-full object-cover"
                       src={item?.channelImg}
