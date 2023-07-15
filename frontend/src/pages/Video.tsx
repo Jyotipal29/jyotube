@@ -13,8 +13,14 @@ import { useUser } from "../context/userContext/userContext";
 import { useNavigate } from "react-router-dom";
 import Recommendation from "../component/Recommendation";
 import Layout from "../component/Layout";
+import { RotatingLines } from "react-loader-spinner";
+
 const Video = () => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
+  const [sloading, setSLoading] = useState(false);
+  const [lloading, setLLoading] = useState(false);
+
   const [currVideo, setCurrVideo] = useState<Video | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState("");
@@ -27,9 +33,11 @@ const Video = () => {
     videoDispatch,
   } = useVideo();
   const getVideo = async () => {
+    setLoading(true);
     const { data } = await axios.get<Video>(`${api}video/find/${id}`);
     setCurrVideo(data);
     videoDispatch({ type: "GET_VIDEO", payload: data });
+    setLoading(false);
   };
   useEffect(() => {
     getVideo();
@@ -49,6 +57,7 @@ const Video = () => {
   }, [id]);
 
   const likeHandler = async (id: string) => {
+    setLLoading(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -61,9 +70,11 @@ const Video = () => {
       config
     );
     videoDispatch({ type: "TOGGLE_LIKE", payload: data });
+    setLLoading(false);
   };
 
   const watchHandler = async (id: string) => {
+    setSLoading(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -76,7 +87,7 @@ const Video = () => {
       config
     );
     videoDispatch({ type: "TOGGLE_WATCHLATER", payload: data });
-
+    setSLoading(false);
     console.log(data, "watched later data");
   };
   const isVideoLiked =
@@ -222,79 +233,137 @@ const Video = () => {
           {id && <Recommendation id={id} />}
         </div>
       </div> */}
-      <div className="flex justify-center flex-row  ">
-        <div className="w-full max-w-[1280px] flex flex-col lg:flex-row">
-          <div className="flex flex-col lg:w-[calc(100%-350px)] xl:w-[calc(100%-400px)] px-4 py-3 lg:py-6 overflow-y-auto bg-black">
-            <div className="h-[200px] md:h-[400px] lg:h-[400px] xl:h-[400px] ml-[-16px] lg:ml-0 mr-[-16px] lg:mr-0 ">
-              <ReactPlayer
-                url={currVideo?.videoUrl}
-                controls
-                width="100%"
-                height="100%"
-                style={{ backgroundColor: "#000000" }}
-                playing={true}
-              />
-            </div>
-            <div className="text-white font-bold text-sm md:text-xl mt-4 line-clamp-2">
-              {currVideo?.title}
-            </div>
-            <div className="flex justify-between flex-col md:flex-row mt-4">
-              <div className="flex">
-                <div className="flex items-start">
-                  <div className="flex h-11 w-11 rounded-full overflow-hidden">
-                    <img
-                      className="h-full w-full object-cover"
-                      src={currVideo?.channelImg}
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col ml-3 mt-2">
-                  <div className="text-white text-md font-semibold flex items-center text-xl">
-                    {currVideo?.creator}
-                  </div>
-                </div>
-              </div>
-              <div className="flex text-white mt-4 md:mt-0">
-                <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15]">
-                  <button
-                    onClick={() =>
-                      currVideo?._id && likeHandler(currVideo?._id)
-                    }
-                  >
-                    {isVideoLiked ? (
-                      <AiFillLike className="text-white text-2xl md:text-4xl cursor-pointer" />
-                    ) : (
-                      <AiOutlineLike className="text-white text-2xl md:text-4xl cursor-pointer" />
-                    )}
-                  </button>
-                </div>
-                <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15] ml-4">
-                  <button
-                    onClick={() =>
-                      currVideo?._id && watchHandler(currVideo?._id)
-                    }
-                  >
-                    {isSaved ? (
-                      <MdWatchLater className="text-white text-2xl md:text-4xl cursor-pointer" />
-                    ) : (
-                      <MdOutlineWatchLater className="text-white text-2xl md:text-4xl cursor-pointer" />
-                    )}
-                  </button>
-                </div>
-                <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15] ml-4">
-                  <CgPlayListAdd
-                    className="text-white text-2xl md:text-4xl cursor-pointer"
-                    onClick={() => setShowModal(true)}
+      <>
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <RotatingLines
+              strokeColor="red"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          </div>
+        ) : (
+          <div className="flex justify-center flex-row  ">
+            <div className="w-full max-w-[1280px] flex flex-col lg:flex-row">
+              <div className="flex flex-col lg:w-[calc(100%-350px)] xl:w-[calc(100%-400px)] px-4 py-3 lg:py-6 overflow-y-auto bg-black">
+                <div className="h-[200px] md:h-[400px] lg:h-[400px] xl:h-[400px] ml-[-16px] lg:ml-0 mr-[-16px] lg:mr-0 ">
+                  <ReactPlayer
+                    url={currVideo?.videoUrl}
+                    controls
+                    width="100%"
+                    height="100%"
+                    style={{ backgroundColor: "#000000" }}
+                    playing={true}
                   />
                 </div>
+                <div className="text-white font-bold text-sm md:text-xl mt-4 line-clamp-2">
+                  {currVideo?.title}
+                </div>
+                <div className="flex justify-between flex-col md:flex-row mt-4">
+                  <div className="flex">
+                    <div className="flex items-start">
+                      <div className="flex h-11 w-11 rounded-full overflow-hidden">
+                        <img
+                          className="h-full w-full object-cover"
+                          src={currVideo?.channelImg}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col ml-3 mt-2">
+                      <div className="text-white text-md font-semibold flex items-center text-xl">
+                        {currVideo?.creator}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex text-white mt-4 md:mt-0">
+                    <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15]">
+                      <button
+                        onClick={() =>
+                          currVideo?._id && likeHandler(currVideo?._id)
+                        }
+                      >
+                        {isVideoLiked ? (
+                          lloading ? (
+                            <div className="flex items-center justify-center">
+                              <RotatingLines
+                                strokeColor="red"
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                width="20"
+                                visible={true}
+                              />
+                            </div>
+                          ) : (
+                            <AiFillLike className="text-red-600 text-2xl md:text-4xl cursor-pointer" />
+                          )
+                        ) : lloading ? (
+                          <div className="flex items-center justify-center">
+                            <RotatingLines
+                              strokeColor="red"
+                              strokeWidth="5"
+                              animationDuration="0.75"
+                              width="20"
+                              visible={true}
+                            />
+                          </div>
+                        ) : (
+                          <AiOutlineLike className="text-white text-2xl md:text-4xl cursor-pointer" />
+                        )}
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15] ml-4">
+                      <button
+                        onClick={() =>
+                          currVideo?._id && watchHandler(currVideo?._id)
+                        }
+                      >
+                        {isSaved ? (
+                          sloading ? (
+                            <div className="flex items-center justify-center">
+                              <RotatingLines
+                                strokeColor="red"
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                width="20"
+                                visible={true}
+                              />
+                            </div>
+                          ) : (
+                            <MdWatchLater className="text-red-600 text-2xl md:text-4xl cursor-pointer" />
+                          )
+                        ) : sloading ? (
+                          <div className="flex items-center justify-center">
+                            <RotatingLines
+                              strokeColor="red"
+                              strokeWidth="5"
+                              animationDuration="0.75"
+                              width="20"
+                              visible={true}
+                            />
+                          </div>
+                        ) : (
+                          <MdOutlineWatchLater className="text-white text-2xl md:text-4xl cursor-pointer" />
+                        )}
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-center h-11 px-6 rounded-3xl bg-white/[0.15] ml-4">
+                      <CgPlayListAdd
+                        className="text-white text-2xl md:text-4xl cursor-pointer"
+                        onClick={() => setShowModal(true)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col py-6 lg:py-0 lg:px-4 overflow-y-auto lg:w-[350px] xl:w-[400px]">
+                {id && <Recommendation id={id} />}
               </div>
             </div>
           </div>
-          <div className="flex flex-col py-6 lg:py-0 lg:px-4 overflow-y-auto lg:w-[350px] xl:w-[400px]">
-            {id && <Recommendation id={id} />}
-          </div>
-        </div>
-      </div>
+        )}
+      </>
     </Layout>
   );
 };

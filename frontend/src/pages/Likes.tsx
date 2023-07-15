@@ -5,7 +5,11 @@ import { useUser } from "../context/userContext/userContext";
 import VideoCard from "../component/VideoCard";
 import { useVideo } from "../context/videoContext/videoContext";
 import Layout from "../component/Layout";
+import { RotatingLines } from "react-loader-spinner";
+
 const Likes = () => {
+  const [loading, setLoading] = useState(false);
+
   const {
     userState: { user },
   } = useUser();
@@ -14,6 +18,7 @@ const Likes = () => {
     videoDispatch,
   } = useVideo();
   const getLikedVideos = async () => {
+    setLoading(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -23,6 +28,7 @@ const Likes = () => {
 
     console.log(data, "liked data 123");
     videoDispatch({ type: "Like_VIDEO", payload: data });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -31,11 +37,23 @@ const Likes = () => {
   console.log(liked, "like page data  main");
   return (
     <Layout>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
-        {liked.map((item: Video) => (
-          <VideoCard {...item} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center">
+          <RotatingLines
+            strokeColor="red"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
+          {liked.map((item: Video) => (
+            <VideoCard {...item} />
+          ))}
+        </div>
+      )}
     </Layout>
   );
 };

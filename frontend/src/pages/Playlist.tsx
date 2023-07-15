@@ -2,10 +2,14 @@ import axios from "axios";
 import { api } from "../constant/api";
 import { useVideo } from "../context/videoContext/videoContext";
 import { useUser } from "../context/userContext/userContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../component/Layout";
+import { RotatingLines } from "react-loader-spinner";
+
 const Playlist = () => {
+  const [loading, setLoading] = useState(false);
+
   const {
     userState: { user },
   } = useUser();
@@ -14,6 +18,7 @@ const Playlist = () => {
     videoDispatch,
   } = useVideo();
   const getPlaylist = async () => {
+    setLoading(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -21,6 +26,7 @@ const Playlist = () => {
     };
     const { data } = await axios.get(`${api}playlist/`, config);
     videoDispatch({ type: "GET_PLAYLIST", payload: data });
+    setLoading(false);
   };
   console.log(playlists, "playlists");
   useEffect(() => {
@@ -54,53 +60,65 @@ const Playlist = () => {
   };
   return (
     <Layout>
-      {playlists.map((items) => (
-        <div>
-          <div className="flex justify-between px-12 bg-gray-600">
-            <button onClick={() => deletePlaylist(items._id)}>delete</button>
+      {loading ? (
+        <div className="flex items-center justify-center">
+          <RotatingLines
+            strokeColor="red"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
+        </div>
+      ) : (
+        playlists.map((items) => (
+          <div>
+            <div className="flex justify-between px-12 bg-gray-600">
+              <button onClick={() => deletePlaylist(items._id)}>delete</button>
 
-            <p className=" py-2  text-center">{items.name}</p>
-          </div>
+              <p className=" py-2  text-center">{items.name}</p>
+            </div>
 
-          <div className="grid grid-cols-2">
-            {items.videos.map((item) => (
-              <div>
-                <div className=" flex flex-col space-y-2">
-                  <button onClick={() => deleteVideo(items._id, item._id)}>
-                    delete
-                  </button>
-                  <div className="cursor-pointer">
-                    <Link to={`/video/${item._id}`}>
-                      <img
-                        src={item.thumbnailUrl}
-                        alt="video"
-                        className="w-80 h-60 rounded-lg"
-                      />
-                    </Link>
-                  </div>
-
-                  <div className="flex justify-start px-2 space-x-2">
-                    <div className="w-10 ">
-                      <img
-                        src={item.channelImg}
-                        alt=""
-                        className=" w-full  rounded-full"
-                      />
+            <div className="grid grid-cols-2">
+              {items.videos.map((item) => (
+                <div>
+                  <div className=" flex flex-col space-y-2">
+                    <button onClick={() => deleteVideo(items._id, item._id)}>
+                      delete
+                    </button>
+                    <div className="cursor-pointer">
+                      <Link to={`/video/${item._id}`}>
+                        <img
+                          src={item.thumbnailUrl}
+                          alt="video"
+                          className="w-80 h-60 rounded-lg"
+                        />
+                      </Link>
                     </div>
-                    <div className="w-40 ">
-                      <p className="text-md font-bold">{item.title}</p>
 
-                      <h1 className="text-sm font-semibold uppercase text-gray-600">
-                        {item.creator}
-                      </h1>
+                    <div className="flex justify-start px-2 space-x-2">
+                      <div className="w-10 ">
+                        <img
+                          src={item.channelImg}
+                          alt=""
+                          className=" w-full  rounded-full"
+                        />
+                      </div>
+                      <div className="w-40 ">
+                        <p className="text-md font-bold">{item.title}</p>
+
+                        <h1 className="text-sm font-semibold uppercase text-gray-600">
+                          {item.creator}
+                        </h1>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </Layout>
   );
 };
