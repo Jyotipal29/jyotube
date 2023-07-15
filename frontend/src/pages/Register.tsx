@@ -1,4 +1,5 @@
 import { AiOutlineEye } from "react-icons/ai";
+import { RotatingLines } from "react-loader-spinner";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -89,7 +90,19 @@ const Register = () => {
               type="submit"
               className="bg-red-600 w-full py-1 uppercase text-white font-semibold text-xl rounded-md"
             >
-              submit
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <RotatingLines
+                    strokeColor="white"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="20"
+                    visible={true}
+                  />
+                </div>
+              ) : (
+                "submit"
+              )}
             </button>
             <button onClick={() => navigate("/login")}>
               Already have an account ?{" "}

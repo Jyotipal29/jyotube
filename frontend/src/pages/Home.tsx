@@ -3,7 +3,6 @@ import { api } from "../constant/api";
 import { useEffect, useState } from "react";
 import { useVideo } from "../context/videoContext/videoContext";
 import VideoCard from "../component/VideoCard";
-import Sidebar from "../component/Sidebar";
 import Layout from "../component/Layout";
 import { RotatingLines } from "react-loader-spinner";
 const cat = [

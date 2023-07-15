@@ -1,5 +1,6 @@
 import { AiOutlineEye } from "react-icons/ai";
 import { useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
 
 import axios from "axios";
 import { api } from "../constant/api";
@@ -76,10 +77,26 @@ const Login = () => {
               type="submit"
               className="bg-red-600 w-full py-1 uppercase text-white font-semibold text-xl rounded-md"
             >
-              submit
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <RotatingLines
+                    strokeColor="white"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="20"
+                    visible={true}
+                  />
+                </div>
+              ) : (
+                "submit"
+              )}
             </button>
             <button
-              type="submit"
+              type="button"
+              onClick={() => {
+                setEmail("guest@gmail.com");
+                setPassword("guest");
+              }}
               className="border border-red-600 w-full py-1 uppercase text-red-600 font-semibold text-xl rounded-md"
             >
               guest
