@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { AiOutlineSearch } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
 import { MdWatchLater } from "react-icons/md";
@@ -13,9 +12,15 @@ import { useVideo } from "../context/videoContext/videoContext";
 import axios from "axios";
 import { api } from "../constant/api";
 import { FiLogOut } from "react-icons/fi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
+
+// import { AiOutlineSearch } from "react-icons/ai";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
+  const [searchbar, toggleSearchBar] = useState(false);
+
   const navigate = useNavigate();
   const {
     userState: { user },
@@ -58,14 +63,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             jyotube
           </div>
         </div>
-        <div className="w-1/3 flex flex-col  px-3">
-          <form className="flex items-center justify-end  w-full ">
+        <div className="w-1/3 flex max-md:w-full items-center">
+          <form
+            className={`flex items-center flex-nowrap w-full h-full max-md:hidden max-md:h-14 max-md:bg-zinc-500 ${
+              searchbar
+                ? "max-md:!absolute max-md:left-0 max-md:!flex max-md:!w-[100vw] max-md:z-[99]"
+                : ""
+            }`}
+          >
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="search"
-              className=" hidden  md:flex w-full px-5 bg-zinc-600 h-10 rounded-tl-full rounded-bl-full outline-none text-gray-200 "
+              className="px-5 bg-zinc-600 h-10 rounded-tl-full rounded-bl-full outline-none text-gray-200 w-full max-md:ml-[40px] max-w-[100%-40px]"
             />
             <button
               type="submit"
@@ -75,6 +86,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <AiOutlineSearch className="text-2xl" />
             </button>
           </form>
+          <span
+            onClick={() => toggleSearchBar(!searchbar)}
+            className={`ext-gray-500 ml-auto md:!hidden ${
+              searchbar ? "ml-0 z-[999] fixed left-0" : ""
+            }`}
+          >
+            {searchbar ? (
+              <AiOutlineCloseCircle className="w-10 h-10 p-2 rounded-full bg-zinc-500 text-gray-300" />
+            ) : (
+              <AiOutlineSearch className="w-10 h-10 p-2 rounded-full bg-zinc-500 text-gray-300" />
+            )}
+          </span>
         </div>
         <div className="flex items-center space-x-6">
           {user?.token && (
