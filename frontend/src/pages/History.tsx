@@ -47,10 +47,10 @@ const History = () => {
   console.log(history, "the history it is");
   return (
     <Layout>
-      <div>
+      <div className="flex justify-end mb-2">
         <button
           onClick={clearHistory}
-          className="border-2 px-3 py-1 text-red-500 bg-gray-800"
+          className=" px-3 py-1 bg-white text-red-500 rounded-xl"
         >
           clear history
         </button>
@@ -66,7 +66,7 @@ const History = () => {
           />
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-4">
+        <div className="grid  grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
           {history.map((item) => (
             <VideoCard {...item} />
           ))}

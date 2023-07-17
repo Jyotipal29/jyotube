@@ -78,7 +78,7 @@ export const videoReducer = (videoState: VideoState, action: VideoAction) => {
           playlist._id === action.payload._id
             ? {
                 ...playlist,
-                videos: [...playlist.videos, action.payload.video],
+                videos: [...playlist.videos, action.payload.videos],
               }
             : playlist
         ),

@@ -14,6 +14,7 @@ import { api } from "../constant/api";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
 
 // import { AiOutlineSearch } from "react-icons/ai";
 
@@ -130,7 +131,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 open ? "flex-row " : "flex-col"
               }  items-center mt-5 space-x-2`}
             >
-              <AiOutlineHome className=" text-white text-2xl" />
+              <AiFillHome className=" text-white text-2xl" />
               {open && (
                 <span className="text-lg text-white font-lora mt-2">Home</span>
               )}

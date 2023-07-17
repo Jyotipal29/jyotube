@@ -30,7 +30,7 @@ declare global {
   type AddToPlaylistPayload = {
     _id: string;
     playlistId: string;
-    video: Video;
+    videos: Video;
   };
 
   type CreatePlaylistPayload = {

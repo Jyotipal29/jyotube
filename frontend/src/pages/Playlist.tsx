@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../component/Layout";
 import { RotatingLines } from "react-loader-spinner";
-
+import { AiOutlineCloseCircle } from "react-icons/ai";
 const Playlist = () => {
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +44,7 @@ const Playlist = () => {
   };
 
   const deleteVideo = async (playlistId: string, videoId: string) => {
+    console.log(playlistId, videoId, "the ids to delete");
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -58,6 +59,8 @@ const Playlist = () => {
       },
     });
   };
+
+  console.log(playlists, "this is playlist");
   return (
     <Layout>
       {loading ? (
@@ -79,38 +82,41 @@ const Playlist = () => {
               <p className=" py-2  text-center">{items.name}</p>
             </div>
 
-            <div className="grid grid-cols-2">
+            <div className="grid  mt-5 grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
               {items.videos.map((item) => (
-                <div>
-                  <div className=" flex flex-col space-y-2">
-                    <button onClick={() => deleteVideo(items._id, item._id)}>
-                      delete
-                    </button>
-                    <div className="cursor-pointer">
-                      <Link to={`/video/${item._id}`}>
-                        <img
-                          src={item.thumbnailUrl}
-                          alt="video"
-                          className="w-80 h-60 rounded-lg"
-                        />
-                      </Link>
+                <div className=" flex flex-col space-y-2 relative">
+                  <div className="cursor-pointer">
+                    <Link to={`/video/${item._id}`}>
+                      <img
+                        src={item.thumbnailUrl}
+                        alt="video"
+                        className="w-80 h-60 rounded-lg"
+                      />
+                    </Link>
+                  </div>
+                  <div className="absolute top-0 right-3  ">
+                    <AiOutlineCloseCircle
+                      className="text-red-600 text-3xl cursor-pointer"
+                      onClick={() => deleteVideo(items._id, item._id)}
+                    />
+                  </div>
+
+                  <div className="flex justify-start px-2 space-x-2">
+                    <div className="w-10 ">
+                      <img
+                        src={item.channelImg}
+                        alt=""
+                        className=" w-full  rounded-full object-cover"
+                      />
                     </div>
+                    <div className="w-40 ">
+                      <p className="text-md font-bold text-gray-100">
+                        {item.title}
+                      </p>
 
-                    <div className="flex justify-start px-2 space-x-2">
-                      <div className="w-10 ">
-                        <img
-                          src={item.channelImg}
-                          alt=""
-                          className=" w-full  rounded-full"
-                        />
-                      </div>
-                      <div className="w-40 ">
-                        <p className="text-md font-bold">{item.title}</p>
-
-                        <h1 className="text-sm font-semibold uppercase text-gray-600">
-                          {item.creator}
-                        </h1>
-                      </div>
+                      <h1 className="text-sm font-semibold uppercase text-gray-100">
+                        {item.creator}
+                      </h1>
                     </div>
                   </div>
                 </div>

@@ -1,16 +1,5 @@
 const videos = [
   {
-    thumbnailUrl: "https://img.youtube.com/vi/neZVekz6Sfw/maxresdefault.jpg",
-    title: "Manali vlog",
-    creator: "Hopping bug",
-    tag: ["manali", "hopping bug"],
-    likes: [],
-    watchlater: [],
-    videoUrl: "https://youtube.com/embed/eZVekz6Sfw",
-    channelImg:
-      "https://yt3.googleusercontent.com/ytc/AGIKgqPsXnUSXBRxMWH0XqaUlD0nTIJ_anaxMTU4DCY1fg=s176-c-k-c0x00ffffff-no-rj",
-  },
-  {
     thumbnailUrl: "https://img.youtube.com/vi/38rh7-v6p6A/maxresdefault.jpg",
     title: "Manali | Top 5 things to do | travel video",
     creator: "Hopping bug",
@@ -32,39 +21,7 @@ const videos = [
     channelImg:
       "https://yt3.googleusercontent.com/ytc/AGIKgqOPT1qUqk7w4SjcXAzcvfWNO4C5E8azTMawBViCs5o=s176-c-k-c0x00ffffff-no-rj",
   },
-  {
-    thumbnailUrl: "https://img.youtube.com/vi/-86CtPh5ui4/maxresdefault.jpg",
-    tag: ["shimla", "curly tales"],
-    title: "3 Days gateway to the queen of hills-Shimla| travel video",
-    creator: "curly tales",
-    likes: [],
-    watchlater: [],
-    videoUrl: "https://www.youtube.com/embed/86CtPh5ui4",
-    channelImg:
-      "https://yt3.googleusercontent.com/zdU2A41m8coX5YUdqKM1Wb9fQYAwpX_u3qOErZlSEx-u0Rnw3-CnB_dSxtRJ3LCkGihs6fBe=s176-c-k-c0x00ffffff-no-rj",
-  },
-  {
-    thumbnailUrl: "https://img.youtube.com/vi/-IdCeC817QQ/maxresdefault.jpg",
-    tag: ["shimla", "distance between"],
-    title: "Shimla kalka toy Train| travel video",
-    creator: "distance between",
-    likes: [],
-    watchlater: [],
-    videoUrl: "https://www.youtube.com/embed/86CtPh5ui4",
-    channelImg:
-      "https://yt3.googleusercontent.com/uxtNaM5aWylFG8wTizKu6aeGYyPsknNrWh1jIh4m30ORyPOFfhWRgyGsiUoZU5MIQgYDqda3Og=s176-c-k-c0x00ffffff-no-rj",
-  },
-  {
-    thumbnailUrl: "https://img.youtube.com/vi/-IdCeC817QQ/maxresdefault.jpg",
-    tag: ["shimla", "distance between"],
-    title: "Shimla kalka toy Train| travel video",
-    creator: "distance between",
-    likes: [],
-    watchlater: [],
-    videoUrl: "https://www.youtube.com/embed/86CtPh5ui4",
-    channelImg:
-      "https://yt3.googleusercontent.com/uxtNaM5aWylFG8wTizKu6aeGYyPsknNrWh1jIh4m30ORyPOFfhWRgyGsiUoZU5MIQgYDqda3Og=s176-c-k-c0x00ffffff-no-rj",
-  },
+
   {
     thumbnailUrl: "https://img.youtube.com/vi/CSFg-_vgp_Y/maxresdefault.jpg",
     tag: ["shillong", "hopping bug"],
