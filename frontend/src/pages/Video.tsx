@@ -57,96 +57,120 @@ const Video = () => {
   }, [id]);
 
   const likeHandler = async (id: string) => {
-    setLLoading(true);
+    try {
+      if (user?.token) {
+        setLLoading(true);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
+
+        const { data } = await axios.post<Video>(
+          `${api}like/toggel/${id}`,
+          {},
+          config
+        );
+        videoDispatch({ type: "TOGGLE_LIKE", payload: data });
+        setLLoading(false);
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      setLLoading(false);
+    }
+  };
+  const getWatchLaterVideos = async () => {
+    setLoading(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     };
+    const { data } = await axios.get<Video[]>(`${api}watchlater/`, config);
 
-    const { data } = await axios.post<Video>(
-      `${api}like/toggel/${id}`,
-      {},
+    videoDispatch({ type: "ADD_WATCHLATER", payload: data });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getWatchLaterVideos();
+  }, []);
+  const watchHandler = async (id: string) => {
+    try {
+      if (user?.token) {
+        setSLoading(true);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
+
+        const { data } = await axios.post<Video>(
+          `${api}watchlater/toggel/${id}`,
+          {},
+          config
+        );
+        videoDispatch({ type: "TOGGLE_WATCHLATER", payload: data });
+        getWatchLaterVideos();
+        setSLoading(false);
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      setSLoading(false);
+    }
+  };
+  const isVideoLiked =
+    currVideo && liked.some((item) => item._id === currVideo._id);
+
+  const isSaved =
+    currVideo && watchlater.some((item) => item._id === currVideo._id);
+
+  // add to playlist
+  const addToPlaylist = async (id: string) => {
+    console.log(id, "this is the id");
+    console.log(currVideo, "currVideo");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+    const { data } = await axios.post(
+      `${api}playlist/${id}`,
+      { video: currVideo },
       config
     );
-    videoDispatch({ type: "TOGGLE_LIKE", payload: data });
-    setLLoading(false);
-  };
-const getWatchLaterVideos = async () => {
-  setLoading(true);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user?.token}`,
-    },
-  };
-  const { data } = await axios.get<Video[]>(`${api}watchlater/`, config);
-
-  videoDispatch({ type: "ADD_WATCHLATER", payload: data });
-  setLoading(false);
-};
-
-useEffect(() => {
-  getWatchLaterVideos();
-}, []);
-const watchHandler = async (id: string) => {
-  setSLoading(true);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user?.token}`,
-    },
+    console.log(data, "add to playlist data");
+    videoDispatch({ type: "ADD_TO_PLAYLIST", payload: data });
   };
 
-  const { data } = await axios.post<Video>(
-    `${api}watchlater/toggel/${id}`,
-    {},
-    config
-  );
-  videoDispatch({ type: "TOGGLE_WATCHLATER", payload: data });
-  getWatchLaterVideos();
-  setSLoading(false);
-  console.log(data, "watched later data");
-};
-const isVideoLiked =
-  currVideo && liked.some((item) => item._id === currVideo._id);
+  //create playlist
+  const createPlaylist = async () => {
+    try {
+      if (user?.token) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
 
-const isSaved =
-  currVideo && watchlater.some((item) => item._id === currVideo._id);
-
-// add to playlist
-const addToPlaylist = async (id: string) => {
-  console.log(id, "this is the id");
-  console.log(currVideo, "currVideo");
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user?.token}`,
-    },
+        const { data } = await axios.post<CreatePlaylistPayload>(
+          `${api}playlist/`,
+          { name: newPlaylistName, video: currVideo },
+          config
+        );
+        videoDispatch({ type: "CREATE_PLAYLIST", payload: data });
+        setShowModal(false);
+        setNewPlaylistName("");
+      } else {
+        navigate("/login");
+        setShowModal(false);
+      }
+    } catch (error) {
+      setShowModal(false);
+    }
   };
-  const { data } = await axios.post(
-    `${api}playlist/${id}`,
-    { video: currVideo },
-    config
-  );
-  console.log(data, "add to playlist data");
-  videoDispatch({ type: "ADD_TO_PLAYLIST", payload: data });
-};
-
-//create playlist
-const createPlaylist = async () => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user?.token}`,
-    },
-  };
-
-  const { data } = await axios.post<CreatePlaylistPayload>(
-    `${api}playlist/`,
-    { name: newPlaylistName, video: currVideo },
-    config
-  );
-  videoDispatch({ type: "CREATE_PLAYLIST", payload: data });
-  setShowModal(false);
-  setNewPlaylistName("");
-};
 return (
   <Layout>
     <>
