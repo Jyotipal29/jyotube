@@ -271,43 +271,34 @@ return (
                     />
                   </div>
                   {showModal && (
-                    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="fixed z-50 top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
                       <div className="bg-white p-6 rounded-md">
                         <h3 className="text-lg text-black font-bold mb-4">
                           Add to Playlist
                         </h3>
-                        <select
-                          className="border border-gray-300 rounded-md p-2 mb-4"
-                          onChange={(e) => addToPlaylist(e.target.value)}
-                        >
-                          <option value="" className="text-black">
-                            Select an existing playlist
-                          </option>
-                          {playlists.map((item) => (
-                            <option key={item._id} value={item._id}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="border border-gray-300 rounded-md p-2 mb-4">
+
+                        <div className="border border-gray-300 rounded-md p-2 py-2 mb-4 space-y-3">
                           <p className="text-black">
-                            Select an existing playlist:
+                            Select an existing playlist
                           </p>
                           {playlists?.map((item) => (
-                            <div key={item._id}>
+                            <div key={item._id} className="space-x-2">
                               <input
                                 type="checkbox"
                                 id={item._id}
                                 value={item._id}
                                 onChange={(e) => addToPlaylist(e.target.value)}
                               />
-                              <label htmlFor={item._id} className="text-black">
+                              <label
+                                htmlFor={item._id}
+                                className="text-black uppercase"
+                              >
                                 {item.name}
                               </label>
                             </div>
                           ))}
                         </div>
-                        <div>
+                        <div className="  space-x-4">
                           <input
                             type="text"
                             className="border text-black border-gray-300 bg-transparent rounded-md p-2 mb-4"
@@ -319,7 +310,7 @@ return (
                             className="bg-red-400 text-white rounded-md px-4 py-2"
                             onClick={createPlaylist}
                           >
-                            Create New Playlist
+                            Create
                           </button>
                         </div>
                         <button
