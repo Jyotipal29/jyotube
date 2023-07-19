@@ -14,6 +14,6 @@ router.post("/", protect, createPlaylist);
 router.post("/:id", protect, addToPlaylist);
 router.get("/", protect, getPlaylists);
 router.delete("/:id", protect, deletePlaylist);
-router.delete("/:playlistId/:videoId", protect, getPlaylists);
+router.delete("/:playlistId/:videoId", protect, removeVideoFromPlaylist);
 
 module.exports = router;
