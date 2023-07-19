@@ -65,7 +65,6 @@ const Home = () => {
       ? videos
       : videos.filter((video) => video.tag.includes(selectedCategory));
 
-  console.log(filteredVideos, "filtered videos");
   return (
     <Layout>
       <div

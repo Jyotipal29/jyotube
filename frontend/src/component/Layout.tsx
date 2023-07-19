@@ -4,7 +4,6 @@ import { AiFillLike } from "react-icons/ai";
 import { FaHistory } from "react-icons/fa";
 import { MdWatchLater } from "react-icons/md";
 import { MdPlaylistAddCircle } from "react-icons/md";
-import { AiOutlineHome } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext/userContext";
@@ -28,13 +27,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   } = useUser();
   const { videoDispatch } = useVideo();
   const [searchQuery, setSearchQuery] = useState("");
-  const logoutHandler = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
-  console.log(user, "this is user");
 
-  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { data } = await axios.get<Video[]>(`${api}video/search`, {
       params: { query: searchQuery },
@@ -43,7 +37,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     videoDispatch({ type: "GET_SEARCH", payload: data });
     navigate("/search");
     setSearchQuery("");
-    console.log(data, "search data");
   };
 
   const logout = () => {

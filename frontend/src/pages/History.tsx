@@ -5,7 +5,6 @@ import { useUser } from "../context/userContext/userContext";
 import { useEffect, useState } from "react";
 import VideoCard from "../component/VideoCard";
 import Layout from "../component/Layout";
-import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
 const History = () => {
@@ -28,7 +27,6 @@ const History = () => {
     const { data } = await axios.get<Video[]>(`${api}history/`, config);
     videoDispatch({ type: "GET_HISTORY", payload: data });
     setLoading(false);
-    console.log(data, "hsitory page data");
   };
   useEffect(() => {
     getHistory();
@@ -42,9 +40,7 @@ const History = () => {
     };
     const { data } = await axios.delete(`${api}history/`, config);
     videoDispatch({ type: "CLEAR_HISTORY" });
-    console.log("history deleted");
   };
-  console.log(history, "the history it is");
   return (
     <Layout>
       <div className="flex justify-end mb-2">

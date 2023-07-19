@@ -26,7 +26,6 @@ const Likes = () => {
     };
     const { data } = await axios.get<Video[]>(`${api}like/`, config);
 
-    console.log(data, "liked data 123");
     videoDispatch({ type: "Like_VIDEO", payload: data });
     setLoading(false);
   };
@@ -34,7 +33,6 @@ const Likes = () => {
   useEffect(() => {
     getLikedVideos();
   }, []);
-  console.log(liked, "like page data  main");
   return (
     <Layout>
       {loading ? (

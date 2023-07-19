@@ -40,7 +40,6 @@ const Playlist = () => {
     videoDispatch({ type: "GET_PLAYLIST", payload: data });
     setLoading(false);
   };
-  console.log(playlists, "playlists");
   useEffect(() => {
     getPlaylist();
   }, []);
@@ -64,7 +63,6 @@ const Playlist = () => {
   };
 
   const deleteVideo = async (playlistId: string, videoId: string) => {
-    console.log(playlistId, videoId, "the ids to delete");
     setVideoLoading({ isLoading: true, id: videoId });
     const config = {
       headers: {
@@ -82,7 +80,6 @@ const Playlist = () => {
     setVideoLoading({ isLoading: false, id: null });
   };
 
-  console.log(playlists, "this is playlist");
   return (
     <Layout>
       {loading ? (

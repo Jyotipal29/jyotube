@@ -129,8 +129,6 @@ const Video = () => {
 
   // add to playlist
   const addToPlaylist = async (id: string) => {
-    console.log(id, "this is the id");
-    console.log(currVideo, "currVideo");
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -141,7 +139,6 @@ const Video = () => {
       { video: currVideo },
       config
     );
-    console.log(data, "add to playlist data");
     videoDispatch({ type: "ADD_TO_PLAYLIST", payload: data });
   };
 

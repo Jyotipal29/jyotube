@@ -7,7 +7,6 @@ const SearchResult = () => {
     videoState: { searchResult },
   } = useVideo();
 
-  console.log(searchResult, "search page");
   return (
     <Layout>
       <div className="flex flex-col gap-5 space-y-5   max-w-sm  md:max-w-xl  justify-center mx-auto  ">

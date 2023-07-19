@@ -27,7 +27,6 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
         userDispatch({ type: "LOGIN", payload: data });
         navigate("/");
-        console.log(data, "data");
         setLoading(false);
       }
 
