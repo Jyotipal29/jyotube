@@ -8,7 +8,6 @@ import Layout from "../component/Layout";
 import { RotatingLines } from "react-loader-spinner";
 
 const Watchlater = () => {
-  const [watchLater, setWatchLater] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const {

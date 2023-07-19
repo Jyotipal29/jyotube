@@ -1,7 +1,6 @@
 import axios from "axios";
 import { api } from "../constant/api";
 import { useVideo } from "../context/videoContext/videoContext";
-import { useUser } from "../context/userContext/userContext";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 type Id = {

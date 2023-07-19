@@ -12,7 +12,7 @@ export const useVideo = () => {
 export const VideoProvider = ({ children }: VideoProviderProps) => {
   const [videoState, videoDispatch] = useReducer<
     React.Reducer<VideoState, VideoAction>
-  >(videoReducer, {
+  >(videoReducer as React.Reducer<VideoState, VideoAction>, {
     videos: [],
     video: {},
     watchlater: [],

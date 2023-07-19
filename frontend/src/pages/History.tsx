@@ -38,7 +38,7 @@ const History = () => {
         Authorization: `Bearer ${user?.token}`,
       },
     };
-    const { data } = await axios.delete(`${api}history/`, config);
+   await axios.delete(`${api}history/`, config);
     videoDispatch({ type: "CLEAR_HISTORY" });
   };
   return (
